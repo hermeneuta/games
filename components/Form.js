@@ -133,10 +133,10 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-6 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-6 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
             <div>
               <div className="text-left">
-                <label className="font-bold text-lg">Wiek: </label>
+                <label className="font-bold text-md">Wiek: </label>
                 <Age
                   key="age"
                   name="age"
@@ -149,7 +149,7 @@ const Form = () => {
               </div>
 
               <div className="text-left">
-                <label className="font-bold text-lg">Czas [min]: </label>
+                <label className="font-bold text-md">Czas [min]: </label>
                 <Time
                   key="time"
                   name="time"
@@ -162,7 +162,7 @@ const Form = () => {
               </div>
             </div>
             <div>
-              <div className="m-1 sm:m-6">
+              <div className="m-2 sm:m-6">
                 <Button />
               </div>
               <div className="text-xs text-indigo-900">
