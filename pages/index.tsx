@@ -1,5 +1,6 @@
 import Form from "../components/Form";
 import Footer from "../components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const Games = () => {
   return (
@@ -11,6 +12,7 @@ const Games = () => {
         <Form />
       </div>
       <Footer />
+      <Analytics />
     </>
   );
 };
