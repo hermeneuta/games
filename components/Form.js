@@ -113,7 +113,7 @@ const Form = () => {
         <form onSubmit={handleSubmit}>
           <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
             <label className="font-bold text-lg">Cel: </label>
-            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-10">
+            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-6">
               {checkboxes.map((box) => (
                 <Purpose
                   key={box.name}

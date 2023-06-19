@@ -20,7 +20,7 @@ const Result = ({ games }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center max-w-2xl m-auto bg-indigo-500 p-10 ">
+        <div className="font-serif rounded-md text-center max-w-sm sm:max-w-md m-auto md:max-w-lg lg:max-w-2xl bg-indigo-500 p-10 ">
           Brak wyników
         </div>
       )}
