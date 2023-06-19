@@ -1,17 +1,21 @@
-const Age = ({ name, onChange, value, checked }) => {
+const Age = ({ name, onChange, value }) => {
+  const age = ["X", "5+", "8+", "10+"];
   return (
     <>
       <div>
         <label key={name}>
           <input
             className="m-1"
-            type="radio"
+            type="range"
+            min="0"
+            max="3"
+            step="1"
             name={name}
             value={value}
-            checked={checked}
+            // checked={checked}
             onChange={onChange}
           />
-          {name}
+          {age[value]}
         </label>
       </div>
     </>

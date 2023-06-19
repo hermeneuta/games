@@ -1,17 +1,21 @@
-const Time = ({ name, onChange, value, checked }) => {
+const Time = ({ name, onChange, value }) => {
+  const time = ["X", "5", "5-7", "5-10", "10-15"];
+
   return (
     <>
       <div>
         <label key={name}>
           <input
             className="m-1"
-            type="radio"
+            type="range"
             name={name}
             value={value}
-            checked={checked}
+            min="0"
+            max="4"
+            step="1"
             onChange={onChange}
           />
-          {name}
+          {time[value]}
         </label>
       </div>
     </>

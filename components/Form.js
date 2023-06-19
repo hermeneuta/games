@@ -64,6 +64,8 @@ const Form = () => {
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
+  const [valueAge, setValueAge] = useState(0);
+  const [valueTime, setValueTime] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,9 +111,9 @@ const Form = () => {
     <>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
-          <div className="shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-2xl">
-            <label className="font-bold">Cel: </label>
-            <div className="m-auto grid grid-cols-3 text-left">
+          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
+            <label className="font-bold text-lg">Cel: </label>
+            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-10">
               {checkboxes.map((box) => (
                 <Purpose
                   key={box.name}
@@ -131,54 +133,52 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="shadow-md bg-indigo-300 flex items-center justify-center gap-20 m-auto mt-1 mb-1 p-4 rounded-md max-w-md border border-blue-400 ">
+          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-6 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
             <div>
-              <label className="font-bold">Wiek: </label>
-              {ageRange.map((age) => (
+              <div className="text-left">
+                <label className="font-bold text-lg">Wiek: </label>
                 <Age
-                  key={age}
-                  name={age}
-                  value={age}
-                  checked={ageLimit === age}
+                  key="age"
+                  name="age"
+                  value={valueAge}
                   onChange={(e) => {
-                    setAgeLimit(e.target.value);
+                    setValueAge(e.target.value);
+                    setAgeLimit(ageRange[e.target.value]);
                   }}
                 />
-              ))}
-            </div>
+              </div>
 
-            <div>
-              <label className="font-bold">Czas [min]: </label>
-              {timeRange.map((t) => (
+              <div className="text-left">
+                <label className="font-bold text-lg">Czas [min]: </label>
                 <Time
-                  key={t}
-                  name={t}
-                  value={t}
-                  checked={timeLimit === t}
+                  key="time"
+                  name="time"
+                  value={valueTime}
                   onChange={(e) => {
-                    setTimeLimit(e.target.value);
+                    setValueTime(e.target.value);
+                    setTimeLimit(timeRange[e.target.value]);
                   }}
                 />
-              ))}
+              </div>
             </div>
-          </div>
-
-          <div className="text-sm text-indigo-900">
-            <label>Dodatkowe wymagania: </label>
-            <Requirements
-              key="requirements"
-              name="requirements"
-              label="Bez wymagań"
-              value={requir}
-              checked={requir}
-              onChange={() => {
-                setRequir(!requir);
-              }}
-            />
-          </div>
-
-          <div className="m-10">
-            <Button />
+            <div>
+              <div className="m-1 sm:m-6">
+                <Button />
+              </div>
+              <div className="text-xs text-indigo-900">
+                <label>Dodatkowe wymagania: </label>
+                <Requirements
+                  key="requirements"
+                  name="requirements"
+                  label="Bez wymagań"
+                  value={requir}
+                  checked={requir}
+                  onChange={() => {
+                    setRequir(!requir);
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </form>
         <div>
@@ -190,3 +190,16 @@ const Form = () => {
 };
 
 export default Form;
+
+//   {ageRange.map((age) => (
+//     <Age
+//       key={age}
+//       name={age}
+//       value={age}
+//       checked={ageLimit === age}
+//       onChange={(e) => {
+//         setAgeLimit(e.target.value);
+//       }}
+//     />
+//   ))}
+// </div>
