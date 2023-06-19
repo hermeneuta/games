@@ -4,6 +4,7 @@ import Purpose from "./Purpose";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
+import Button from "./Button";
 import { useState, useEffect } from "react";
 
 const Form = () => {
@@ -106,70 +107,83 @@ const Form = () => {
 
   return (
     <>
-      <div>Pick your game</div>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
-          <label>Cel: </label>
-          {checkboxes.map((box) => (
-            <Purpose
-              key={box.name}
-              name={box.name}
-              checked={box.checked}
-              onChange={(e) => {
-                setCheckboxes(
-                  checkboxes.map((box) => {
-                    if (e.target.name === box.name) {
-                      return { ...box, checked: !box.checked };
-                    } else return box;
-                  })
-                );
+          <div className="shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-2xl">
+            <label className="font-bold">Cel: </label>
+            <div className="m-auto grid grid-cols-3 text-left">
+              {checkboxes.map((box) => (
+                <Purpose
+                  key={box.name}
+                  name={box.name}
+                  checked={box.checked}
+                  onChange={(e) => {
+                    setCheckboxes(
+                      checkboxes.map((box) => {
+                        if (e.target.name === box.name) {
+                          return { ...box, checked: !box.checked };
+                        } else return box;
+                      })
+                    );
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="shadow-md bg-indigo-300 flex items-center justify-center gap-20 m-auto mt-1 mb-1 p-4 rounded-md max-w-md border border-blue-400 ">
+            <div>
+              <label className="font-bold">Wiek: </label>
+              {ageRange.map((age) => (
+                <Age
+                  key={age}
+                  name={age}
+                  value={age}
+                  checked={ageLimit === age}
+                  onChange={(e) => {
+                    setAgeLimit(e.target.value);
+                  }}
+                />
+              ))}
+            </div>
+
+            <div>
+              <label className="font-bold">Czas [min]: </label>
+              {timeRange.map((t) => (
+                <Time
+                  key={t}
+                  name={t}
+                  value={t}
+                  checked={timeLimit === t}
+                  onChange={(e) => {
+                    setTimeLimit(e.target.value);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="text-sm text-indigo-900">
+            <label>Dodatkowe wymagania: </label>
+            <Requirements
+              key="requirements"
+              name="requirements"
+              label="Bez wymagań"
+              value={requir}
+              checked={requir}
+              onChange={() => {
+                setRequir(!requir);
               }}
             />
-          ))}
+          </div>
 
-          <label>Wiek: </label>
-          {ageRange.map((age) => (
-            <Age
-              key={age}
-              name={age}
-              value={age}
-              checked={ageLimit === age}
-              onChange={(e) => {
-                setAgeLimit(e.target.value);
-              }}
-            />
-          ))}
-
-          <label>Czas [min]: </label>
-          {timeRange.map((t) => (
-            <Time
-              key={t}
-              name={t}
-              value={t}
-              checked={timeLimit === t}
-              onChange={(e) => {
-                setTimeLimit(e.target.value);
-              }}
-            />
-          ))}
-
-          <label>Dodatkowe wymagania: </label>
-          <Requirements
-            key="requirements"
-            name="requirements"
-            label="Bez wymagań"
-            value={requir}
-            checked={requir}
-            onChange={() => {
-              setRequir(!requir);
-            }}
-          />
-
-          <button type="submit" className="block mt-5 pl-5">
-            Szukaj
-          </button>
+          <div className="m-10">
+            <Button />
+          </div>
         </form>
-        <Result games={result} />
+        <div>
+          <Result games={result} />
+        </div>
       </div>
     </>
   );

@@ -4,6 +4,7 @@ const Requirements = ({ name, onChange, value, checked, label }) => {
       <div>
         <label key={name}>
           <input
+            className="m-1"
             type="checkbox"
             name={name}
             value={value}

@@ -4,6 +4,7 @@ const Time = ({ name, onChange, value, checked }) => {
       <div>
         <label key={name}>
           <input
+            className="m-1"
             type="radio"
             name={name}
             value={value}

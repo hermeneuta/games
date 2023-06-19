@@ -6,6 +6,7 @@ const Purpose = ({ name, onChange, checked }) => {
       <div>
         <label key={name}>
           <input
+            className="m-1"
             type="checkbox"
             name={name}
             onChange={onChange}
