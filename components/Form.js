@@ -110,30 +110,11 @@ const Form = () => {
   return (
     <>
       <div className="text-center">
+        <div>
+          <Result games={result} />
+        </div>
         <form onSubmit={handleSubmit}>
-          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-            <label className="font-bold text-lg">Cel: </label>
-            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-6">
-              {checkboxes.map((box) => (
-                <Purpose
-                  key={box.name}
-                  name={box.name}
-                  checked={box.checked}
-                  onChange={(e) => {
-                    setCheckboxes(
-                      checkboxes.map((box) => {
-                        if (e.target.name === box.name) {
-                          return { ...box, checked: !box.checked };
-                        } else return box;
-                      })
-                    );
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-6 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
             <div>
               <div className="text-left">
                 <label className="font-bold text-md">Wiek: </label>
@@ -180,10 +161,28 @@ const Form = () => {
               </div>
             </div>
           </div>
+          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
+            <label className="font-bold text-lg">Cel: </label>
+            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-6">
+              {checkboxes.map((box) => (
+                <Purpose
+                  key={box.name}
+                  name={box.name}
+                  checked={box.checked}
+                  onChange={(e) => {
+                    setCheckboxes(
+                      checkboxes.map((box) => {
+                        if (e.target.name === box.name) {
+                          return { ...box, checked: !box.checked };
+                        } else return box;
+                      })
+                    );
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         </form>
-        <div>
-          <Result games={result} />
-        </div>
       </div>
     </>
   );
