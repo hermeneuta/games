@@ -91,7 +91,6 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    console.log("Submitted");
     const purpose = checkboxes
       .filter((box) => box.checked === true)
       .map((el) => el.name);
