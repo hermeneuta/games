@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 const Games = () => {
   return (
     <>
-      <div className="bg-indigo-400 pb-60">
+      <div className="bg-indigo-400 pb-40">
         <h1 className="font-serif text-center text-4xl font-bold text-indigo-700 p-6">
           Gry i zabawy
         </h1>
