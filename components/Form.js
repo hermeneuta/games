@@ -114,8 +114,8 @@ const Form = () => {
       alert("An error occurred. Please try again.");
     } finally {
       myRef.current.scrollIntoView({ behavior: "smooth" });
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
