@@ -68,7 +68,7 @@ const Form = () => {
   const [submitted, setSubmitted] = useState(null);
   const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
-  const [labelButton, setLabelButton] = useState("Szukaj");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +86,7 @@ const Form = () => {
         }
       }
     };
-    fetchData().then(setLabelButton("Szukaj"));
+    fetchData();
     // setSubmitted(null);
   }, [submitted]);
 
@@ -94,21 +94,28 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    setLabelButton("Loading...");
-    const purpose = checkboxes
-      .filter((box) => box.checked === true)
-      .map((el) => el.name);
+    setIsLoading(true);
 
-    setPurpose(purpose);
-    setQuery({
-      ...query,
-      purpose: purpose,
-      age: ageLimit,
-      time: timeLimit,
-      requir: requir,
-    });
-    setSubmitted(query);
-    await myRef.current.scrollIntoView({ behavior: "smooth" });
+    try {
+      const purpose = checkboxes
+        .filter((box) => box.checked === true)
+        .map((el) => el.name);
+
+      setPurpose(purpose);
+      setQuery({
+        ...query,
+        purpose: purpose,
+        age: ageLimit,
+        time: timeLimit,
+        requir: requir,
+      });
+      setSubmitted(query);
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    } finally {
+      myRef.current.scrollIntoView({ behavior: "smooth" });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -148,7 +155,7 @@ const Form = () => {
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <Button label={labelButton} />
+                <Button disabled={isLoading} />
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
