@@ -4,7 +4,7 @@ import Purpose from "./Purpose";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
-// import Button from "./Button";
+import Button from "./Button";
 import { useState, useEffect, useRef } from "react";
 
 const Form = () => {
@@ -74,6 +74,7 @@ const Form = () => {
     const fetchData = async () => {
       if (submitted) {
         try {
+          setIsLoading(true);
           const response = await axios.post("/api/search", {
             purpose,
             ageLimit,
@@ -83,6 +84,8 @@ const Form = () => {
           setResult(response.data);
         } catch (err) {
           console.error(err);
+        } finally {
+          setIsLoading(false);
         }
       }
     };
@@ -96,7 +99,6 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      setIsLoading(true);
       const purpose = checkboxes
         .filter((box) => box.checked === true)
         .map((el) => el.name);
@@ -113,7 +115,6 @@ const Form = () => {
     } catch (error) {
       alert("An error occurred. Please try again.");
     } finally {
-      setIsLoading(false);
       myRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -155,13 +156,7 @@ const Form = () => {
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <button
-                  type="submit"
-                  className="font-serif text-md shadow-md text-indigo-900 bg-indigo-500 hover:text-indigo-950 p-2 rounded-md"
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Ładowanie..." : "Szukaj"}
-                </button>
+                <Button disabled={isLoading} />
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
@@ -206,5 +201,3 @@ const Form = () => {
 };
 
 export default Form;
-
-// <Button disabled={isLoading} />
