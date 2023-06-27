@@ -94,9 +94,9 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    setIsLoading(true);
 
     try {
+      setIsLoading(true);
       const purpose = checkboxes
         .filter((box) => box.checked === true)
         .map((el) => el.name);
@@ -113,9 +113,9 @@ const Form = () => {
     } catch (error) {
       alert("An error occurred. Please try again.");
     } finally {
+      setIsLoading(false);
       myRef.current.scrollIntoView({ behavior: "smooth" });
     }
-    setIsLoading(false);
   };
 
   return (
@@ -158,6 +158,7 @@ const Form = () => {
                 <button
                   type="submit"
                   className="font-serif text-md shadow-md text-indigo-900 bg-indigo-500 hover:text-indigo-950 p-2 rounded-md"
+                  disabled={isLoading}
                 >
                   {isLoading ? "Ładowanie..." : "Szukaj"}
                 </button>
