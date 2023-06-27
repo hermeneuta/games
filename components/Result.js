@@ -1,8 +1,8 @@
 import Game from "./Game";
 import { useState, useRef } from "react";
 
-const Result = ({ games }) => {
-  const [showGame, setShowGame] = useState("");
+const Result = ({ games, show }) => {
+  const [showGame, setShowGame] = useState(show);
   const myRef = useRef(null);
 
   const handleClick = (e) => {
@@ -30,7 +30,7 @@ const Result = ({ games }) => {
             </ul>
           </div>
           <div ref={myRef}>
-            <Game games={showGame} />
+            {showGame ? <Game games={showGame} /> : <div></div>}
           </div>
         </div>
       ) : (

@@ -69,6 +69,7 @@ const Form = () => {
   const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,6 +87,7 @@ const Form = () => {
           console.error(err);
         } finally {
           setIsLoading(false);
+          myRef.current.scrollIntoView({ behavior: "smooth" });
         }
       }
     };
@@ -115,7 +117,8 @@ const Form = () => {
     } catch (error) {
       alert("An error occurred. Please try again.");
     } finally {
-      myRef.current.scrollIntoView({ behavior: "smooth" });
+      setShow(false);
+      // myRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -123,7 +126,7 @@ const Form = () => {
     <>
       <div className="text-center">
         <div ref={myRef}>
-          <Result games={result} />
+          <Result games={result} show={show} />
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
