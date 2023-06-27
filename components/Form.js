@@ -68,6 +68,7 @@ const Form = () => {
   const [submitted, setSubmitted] = useState(null);
   const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
+  const [labelButton, setLabelButton] = useState("Szukaj");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,7 +86,7 @@ const Form = () => {
         }
       }
     };
-    fetchData();
+    fetchData().then(setLabelButton("Szukaj"));
     // setSubmitted(null);
   }, [submitted]);
 
@@ -93,6 +94,7 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
+    setLabelButton("Loading...");
     const purpose = checkboxes
       .filter((box) => box.checked === true)
       .map((el) => el.name);
@@ -146,7 +148,7 @@ const Form = () => {
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <Button />
+                <Button label={labelButton} />
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
@@ -191,16 +193,3 @@ const Form = () => {
 };
 
 export default Form;
-
-//   {ageRange.map((age) => (
-//     <Age
-//       key={age}
-//       name={age}
-//       value={age}
-//       checked={ageLimit === age}
-//       onChange={(e) => {
-//         setAgeLimit(e.target.value);
-//       }}
-//     />
-//   ))}
-// </div>
