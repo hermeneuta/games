@@ -5,7 +5,7 @@ import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
 import Button from "./Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Form = () => {
   const purposeList = [
@@ -46,6 +46,8 @@ const Form = () => {
       checked: false,
     },
   ];
+
+  const myRef = useRef(null);
 
   const ageRange = ["no age limit", "5+", "8+", "10+"];
   const timeRange = ["no time limit", "5", "5-7", "5-10", "10-15"];
@@ -104,12 +106,13 @@ const Form = () => {
       requir: requir,
     });
     setSubmitted(query);
+    await myRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <div className="text-center">
-        <div>
+        <div ref={myRef}>
           <Result games={result} />
         </div>
         <form onSubmit={handleSubmit}>

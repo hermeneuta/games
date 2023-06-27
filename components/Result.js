@@ -1,14 +1,16 @@
 import Game from "./Game";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Result = ({ games }) => {
   const [showGame, setShowGame] = useState("");
+  const myRef = useRef(null);
 
   const handleClick = (e) => {
     e.preventDefault();
     const game_name = e.target.textContent;
     const show_game = games.filter((game) => game.game === game_name);
     setShowGame(show_game);
+    myRef.current.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <>
@@ -27,7 +29,9 @@ const Result = ({ games }) => {
               ))}
             </ul>
           </div>
-          <Game games={showGame} />
+          <div ref={myRef}>
+            <Game games={showGame} />
+          </div>
         </div>
       ) : (
         <div></div>
