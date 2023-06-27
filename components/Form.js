@@ -4,7 +4,7 @@ import Purpose from "./Purpose";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
-import Button from "./Button";
+// import Button from "./Button";
 import { useState, useEffect, useRef } from "react";
 
 const Form = () => {
@@ -155,7 +155,12 @@ const Form = () => {
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <Button disabled={isLoading} />
+                <button
+                  type="submit"
+                  className="font-serif text-md shadow-md text-indigo-900 bg-indigo-500 hover:text-indigo-950 p-2 rounded-md"
+                >
+                  {isLoading ? "Ładowanie..." : "Szukaj"}
+                </button>
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
@@ -200,3 +205,5 @@ const Form = () => {
 };
 
 export default Form;
+
+// <Button disabled={isLoading} />
