@@ -1,8 +1,8 @@
 import Game from "./Game";
 import { useState, useRef } from "react";
 
-const Result = ({ games, show }) => {
-  const [showGame, setShowGame] = useState(show);
+const Result = ({ games }) => {
+  const [showGame, setShowGame] = useState("");
   const myRef = useRef(null);
 
   const handleClick = (e) => {
@@ -12,6 +12,7 @@ const Result = ({ games, show }) => {
     setShowGame(show_game);
     myRef.current.scrollIntoView({ behavior: "smooth" });
   };
+  console.log("showGame: ", showGame);
   return (
     <>
       {games.length !== 0 ? (

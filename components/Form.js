@@ -1,6 +1,7 @@
 import axios from "axios";
 import Age from "./Age";
 import Purpose from "./Purpose";
+import Game from "./Game";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
@@ -47,7 +48,9 @@ const Form = () => {
     },
   ];
 
-  const myRef = useRef(null);
+  const resultRef = useRef(null);
+  //Odwołanie do opisu gry
+  const gameRef = useRef(null);
 
   const ageRange = ["no age limit", "5+", "8+", "10+"];
   const timeRange = ["no time limit", "5", "5-7", "5-10", "10-15"];
@@ -69,7 +72,7 @@ const Form = () => {
   const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showGame, setShowGame] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +90,8 @@ const Form = () => {
           console.error(err);
         } finally {
           setIsLoading(false);
-          myRef.current.scrollIntoView({ behavior: "smooth" });
+
+          resultRef.current.scrollIntoView({ behavior: "smooth" });
         }
       }
     };
@@ -99,6 +103,7 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
+    setShowGame(false);
 
     try {
       const purpose = checkboxes
@@ -116,18 +121,46 @@ const Form = () => {
       setSubmitted(query);
     } catch (error) {
       alert("An error occurred. Please try again.");
-    } finally {
-      setShow(false);
-      // myRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  //Obsługa kliknięcia w nazwę gry
+  const handleClick = (e) => {
+    e.preventDefault();
+    const game_name = e.target.textContent;
+    const show_game = result.filter((game) => game.game === game_name);
+    setShowGame(show_game);
+    gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <div className="text-center">
-        <div ref={myRef}>
-          <Result games={result} show={show} />
+        <div ref={resultRef}>
+          {result.length !== 0 ? (
+            <div>
+              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl border border-blue-400 ">
+                <ul className="grid grid-cols-2 lg:grid-cols-3">
+                  {result.map((game) => (
+                    <li
+                      key={game._id}
+                      onClick={handleClick}
+                      className="bg-indigo-300 hover:bg-indigo-500 border border-indigo-500 rounded-md p-2 m-1 font-bold text-xs text-indigo-900 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
+                    >
+                      <div>{game.game}</div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div ref={gameRef}>
+                {showGame ? <Game games={showGame} /> : <div></div>}
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
+
         <form onSubmit={handleSubmit}>
           <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
             <div>
