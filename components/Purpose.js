@@ -1,21 +1,13 @@
 //Query data based on purpose
+
+import { MultiSelectItem } from "@tremor/react";
+
 //
-const Purpose = ({ name, onChange, checked }) => {
+const Purpose = ({ name }) => {
   return (
-    <>
-      <div>
-        <label key={name}>
-          <input
-            className="m-1"
-            type="checkbox"
-            name={name}
-            onChange={onChange}
-            checked={checked}
-          />
-          {name}
-        </label>
-      </div>
-    </>
+    <MultiSelectItem className="bg-white" value={name}>
+      {name}
+    </MultiSelectItem>
   );
 };
 
