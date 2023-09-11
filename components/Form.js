@@ -7,8 +7,17 @@ import Time from "./Time";
 import Result from "./Result";
 import Button from "./Button";
 import { useState, useEffect, useRef } from "react";
+//Select
+import { Select, SelectItem } from "@tremor/react";
+import { CalculatorIcon } from "@heroicons/react/outline";
+//SearchSelect
+import { SearchSelect, SearchSelectItem } from "@tremor/react";
+
+//MultiSelect
+import { MultiSelect, MultiSelectItem } from "@tremor/react";
 
 const Form = () => {
+  const test = ["jeden", "dwa"];
   const purposeList = [
     {
       name: "rozgrzewka",
@@ -210,25 +219,13 @@ const Form = () => {
             </div>
           </div>
           <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-            <label className="font-bold text-lg">Cel: </label>
-            <div className="m-auto grid grid-cols-2 lg:grid-cols-3 text-left text-xs lg:text-sm pl-6">
+            <MultiSelect className="bg-green-600" placeholder="Cel zajęć ...">
               {checkboxes.map((box) => (
-                <Purpose
-                  key={box.name}
-                  name={box.name}
-                  checked={box.checked}
-                  onChange={(e) => {
-                    setCheckboxes(
-                      checkboxes.map((box) => {
-                        if (e.target.name === box.name) {
-                          return { ...box, checked: !box.checked };
-                        } else return box;
-                      })
-                    );
-                  }}
-                />
+                <MultiSelectItem className="bg-green-600" value={box.name}>
+                  {box.name}
+                </MultiSelectItem>
               ))}
-            </div>
+            </MultiSelect>
           </div>
         </form>
       </div>
