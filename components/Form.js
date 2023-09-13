@@ -5,10 +5,9 @@ import Game from "./Game";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
-import Button from "./Button";
 import { useState, useEffect, useRef } from "react";
 //Select
-import { Select, SelectItem } from "@tremor/react";
+import { Button, Select, SelectItem } from "@tremor/react";
 import { CalculatorIcon } from "@heroicons/react/outline";
 //SearchSelect
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
@@ -17,7 +16,6 @@ import { SearchSelect, SearchSelectItem } from "@tremor/react";
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
 
 const Form = () => {
-  const test = ["jeden", "dwa"];
   const purposeList = [
     {
       name: "rozgrzewka",
@@ -71,7 +69,7 @@ const Form = () => {
     requir: "",
   });
 
-  const [checkboxes, setCheckboxes] = useState(purposeList);
+  const [checkboxes, setCheckboxes] = useState([]);
   const [ageLimit, setAgeLimit] = useState("no age limit");
   const [timeLimit, setTimeLimit] = useState("no time limit");
   const [purpose, setPurpose] = useState([]);
@@ -115,9 +113,9 @@ const Form = () => {
     setShowGame(false);
 
     try {
-      const purpose = checkboxes
-        .filter((box) => box.checked === true)
-        .map((el) => el.name);
+      const purpose = checkboxes;
+      // .filter((box) => box.checked === true)
+      // .map((el) => el.name);
 
       setPurpose(purpose);
       setQuery({
@@ -128,6 +126,9 @@ const Form = () => {
         requir: requir,
       });
       setSubmitted(query);
+
+      console.log(checkboxes);
+      console.log(query);
     } catch (error) {
       alert("An error occurred. Please try again.");
     }
@@ -142,6 +143,10 @@ const Form = () => {
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const setCheckboxeshandler = (val) => {
+    console.log("changing to: ", val);
+    setCheckboxes(val);
+  };
   return (
     <>
       <div className="text-center">
@@ -201,7 +206,14 @@ const Form = () => {
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <Button disabled={isLoading} />
+                <Button
+                  loadingText="Szukam..."
+                  loading={isLoading}
+                  size="xs"
+                  variant="primary"
+                >
+                  Szukaj
+                </Button>
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
@@ -219,9 +231,13 @@ const Form = () => {
             </div>
           </div>
           <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-            <MultiSelect className="bg-green-600" placeholder="Cel zajęć ...">
-              {checkboxes.map((box) => (
-                <MultiSelectItem className="bg-green-600" value={box.name}>
+            <MultiSelect
+              onValueChange={setCheckboxeshandler}
+              className="bg-green-600"
+              placeholder="Cel zajęć ..."
+            >
+              {purposeList.map((box) => (
+                <MultiSelectItem key={box.name} value={box.name}>
                   {box.name}
                 </MultiSelectItem>
               ))}
