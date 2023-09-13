@@ -1,6 +1,4 @@
 import axios from "axios";
-import Age from "./Age";
-import Purpose from "./Purpose";
 import Game from "./Game";
 import Requirements from "./Requirements";
 import Time from "./Time";
@@ -17,50 +15,22 @@ import { MultiSelect, MultiSelectItem } from "@tremor/react";
 
 const Form = () => {
   const purposeList = [
-    {
-      name: "rozgrzewka",
-      checked: false,
-    },
-    {
-      name: "rywalizacja",
-      checked: false,
-    },
-    {
-      name: "świadomość ciała",
-      checked: false,
-    },
-    {
-      name: "świadomość przestrzeni",
-      checked: false,
-    },
-    {
-      name: "współpraca",
-      checked: false,
-    },
-    {
-      name: "rozpoznanie ról w grupie",
-      checked: false,
-    },
-    {
-      name: "integracja",
-      checked: false,
-    },
-    {
-      name: "odgrywanie ról",
-      checked: false,
-    },
-    {
-      name: "improwizacja",
-      checked: false,
-    },
+    "rozgrzewka",
+    "rywalizacja",
+    "świadomość ciała",
+    "świadomość przestrzeni",
+    "współpraca",
+    "rozpoznanie ról w grupie",
+    "integracja",
+    "odgrywanie ról",
+    "improwizacja",
   ];
 
   const resultRef = useRef(null);
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
 
-  const ageRange = ["no age limit", "5+", "8+", "10+"];
-  const timeRange = ["no time limit", "5", "5-7", "5-10", "10-15"];
+  const timeRange = ["bez znaczenia", "5", "5-7", "5-10", "10-15"];
 
   const [query, setQuery] = useState({
     purpose: [],
@@ -70,13 +40,12 @@ const Form = () => {
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
-  const [ageLimit, setAgeLimit] = useState("no age limit");
-  const [timeLimit, setTimeLimit] = useState("no time limit");
+  const [ageLimit, setAgeLimit] = useState("bez znaczenia");
+  const [timeLimit, setTimeLimit] = useState("bez znaczenia");
   const [purpose, setPurpose] = useState([]);
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
-  const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showGame, setShowGame] = useState("");
@@ -114,8 +83,6 @@ const Form = () => {
 
     try {
       const purpose = checkboxes;
-      // .filter((box) => box.checked === true)
-      // .map((el) => el.name);
 
       setPurpose(purpose);
       setQuery({
@@ -180,15 +147,16 @@ const Form = () => {
             <div>
               <div className="text-left">
                 <label className="font-bold text-md">Wiek: </label>
-                <Age
-                  key="age"
-                  name="age"
-                  value={valueAge}
-                  onChange={(e) => {
-                    setValueAge(e.target.value);
-                    setAgeLimit(ageRange[e.target.value]);
-                  }}
-                />
+                <Select
+                  placeholder="Wiek..."
+                  value={ageLimit}
+                  onValueChange={setAgeLimit}
+                >
+                  <SelectItem value="bez znaczenia">bez znaczenia</SelectItem>
+                  <SelectItem value="5+">5+</SelectItem>
+                  <SelectItem value="8+">8+</SelectItem>
+                  <SelectItem value="10+">10+</SelectItem>
+                </Select>
               </div>
 
               <div className="text-left">
@@ -235,10 +203,11 @@ const Form = () => {
               onValueChange={setCheckboxeshandler}
               className="bg-green-600"
               placeholder="Cel zajęć ..."
+              value={checkboxes}
             >
-              {purposeList.map((box) => (
-                <MultiSelectItem key={box.name} value={box.name}>
-                  {box.name}
+              {purposeList.map((purpose) => (
+                <MultiSelectItem key={purpose} value={purpose}>
+                  {purpose}
                 </MultiSelectItem>
               ))}
             </MultiSelect>
