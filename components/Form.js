@@ -30,7 +30,8 @@ const Form = () => {
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
 
-  const timeRange = ["bez znaczenia", "5", "5-7", "5-10", "10-15"];
+  const ageRange = ["dowolny", "5+", "8+", "10+"];
+  const timeRange = ["dowolny", "5", "5-7", "5-10", "10-15"];
 
   const [query, setQuery] = useState({
     purpose: [],
@@ -40,8 +41,8 @@ const Form = () => {
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
-  const [ageLimit, setAgeLimit] = useState("bez znaczenia");
-  const [timeLimit, setTimeLimit] = useState("bez znaczenia");
+  const [ageLimit, setAgeLimit] = useState("dowolny");
+  const [timeLimit, setTimeLimit] = useState("dowolny");
   const [purpose, setPurpose] = useState([]);
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
@@ -152,24 +153,27 @@ const Form = () => {
                   value={ageLimit}
                   onValueChange={setAgeLimit}
                 >
-                  <SelectItem value="bez znaczenia">bez znaczenia</SelectItem>
-                  <SelectItem value="5+">5+</SelectItem>
-                  <SelectItem value="8+">8+</SelectItem>
-                  <SelectItem value="10+">10+</SelectItem>
+                  {ageRange.map((age) => (
+                    <SelectItem value={age} key={age}>
+                      {age}
+                    </SelectItem>
+                  ))}
                 </Select>
               </div>
 
               <div className="text-left">
                 <label className="font-bold text-md">Czas [min]: </label>
-                <Time
-                  key="time"
-                  name="time"
-                  value={valueTime}
-                  onChange={(e) => {
-                    setValueTime(e.target.value);
-                    setTimeLimit(timeRange[e.target.value]);
-                  }}
-                />
+                <Select
+                  placeholder="Czas [min]"
+                  value={timeLimit}
+                  onValueChange={setTimeLimit}
+                >
+                  {timeRange.map((time) => (
+                    <SelectItem value={time} key={time}>
+                      {time}
+                    </SelectItem>
+                  ))}
+                </Select>
               </div>
             </div>
             <div>
@@ -188,7 +192,7 @@ const Form = () => {
                 <Requirements
                   key="requirements"
                   name="requirements"
-                  label="Bez wymagań"
+                  label="dowolny"
                   value={requir}
                   checked={requir}
                   onChange={() => {

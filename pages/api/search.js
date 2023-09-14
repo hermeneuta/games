@@ -10,11 +10,11 @@ export default async (req, res) => {
       let timeQuery;
       let purposeQuery;
 
-      if (ageLimit === "bez znaczenia") {
+      if (ageLimit === "dowolny") {
         ageQuery = { age: { $exists: true } };
       } else ageQuery = { age: ageLimit };
 
-      if (timeLimit === "bez znaczenia") {
+      if (timeLimit === "dowolny") {
         timeQuery = { time: { $exists: true } };
       } else timeQuery = { time: timeLimit };
 
