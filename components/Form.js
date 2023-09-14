@@ -1,14 +1,11 @@
 import axios from "axios";
-import Age from "./Age";
-import Purpose from "./Purpose";
 import Game from "./Game";
 import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
-import Button from "./Button";
 import { useState, useEffect, useRef } from "react";
 //Select
-import { Select, SelectItem } from "@tremor/react";
+import { Button, Select, SelectItem } from "@tremor/react";
 import { CalculatorIcon } from "@heroicons/react/outline";
 //SearchSelect
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
@@ -17,52 +14,24 @@ import { SearchSelect, SearchSelectItem } from "@tremor/react";
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
 
 const Form = () => {
-  const test = ["jeden", "dwa"];
   const purposeList = [
-    {
-      name: "rozgrzewka",
-      checked: false,
-    },
-    {
-      name: "rywalizacja",
-      checked: false,
-    },
-    {
-      name: "świadomość ciała",
-      checked: false,
-    },
-    {
-      name: "świadomość przestrzeni",
-      checked: false,
-    },
-    {
-      name: "współpraca",
-      checked: false,
-    },
-    {
-      name: "rozpoznanie ról w grupie",
-      checked: false,
-    },
-    {
-      name: "integracja",
-      checked: false,
-    },
-    {
-      name: "odgrywanie ról",
-      checked: false,
-    },
-    {
-      name: "improwizacja",
-      checked: false,
-    },
+    "rozgrzewka",
+    "rywalizacja",
+    "świadomość ciała",
+    "świadomość przestrzeni",
+    "współpraca",
+    "rozpoznanie ról w grupie",
+    "integracja",
+    "odgrywanie ról",
+    "improwizacja",
   ];
 
   const resultRef = useRef(null);
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
 
-  const ageRange = ["no age limit", "5+", "8+", "10+"];
-  const timeRange = ["no time limit", "5", "5-7", "5-10", "10-15"];
+  const ageRange = ["dowolny", "5+", "8+", "10+"];
+  const timeRange = ["dowolny", "5", "5-7", "5-10", "10-15"];
 
   const [query, setQuery] = useState({
     purpose: [],
@@ -71,14 +40,13 @@ const Form = () => {
     requir: "",
   });
 
-  const [checkboxes, setCheckboxes] = useState(purposeList);
-  const [ageLimit, setAgeLimit] = useState("no age limit");
-  const [timeLimit, setTimeLimit] = useState("no time limit");
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [ageLimit, setAgeLimit] = useState("dowolny");
+  const [timeLimit, setTimeLimit] = useState("dowolny");
   const [purpose, setPurpose] = useState([]);
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
-  const [valueAge, setValueAge] = useState(0);
   const [valueTime, setValueTime] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showGame, setShowGame] = useState("");
@@ -115,9 +83,7 @@ const Form = () => {
     setShowGame(false);
 
     try {
-      const purpose = checkboxes
-        .filter((box) => box.checked === true)
-        .map((el) => el.name);
+      const purpose = checkboxes;
 
       setPurpose(purpose);
       setQuery({
@@ -128,6 +94,9 @@ const Form = () => {
         requir: requir,
       });
       setSubmitted(query);
+
+      console.log(checkboxes);
+      console.log(query);
     } catch (error) {
       alert("An error occurred. Please try again.");
     }
@@ -142,6 +111,10 @@ const Form = () => {
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const setCheckboxeshandler = (val) => {
+    console.log("changing to: ", val);
+    setCheckboxes(val);
+  };
   return (
     <>
       <div className="text-center">
@@ -175,40 +148,51 @@ const Form = () => {
             <div>
               <div className="text-left">
                 <label className="font-bold text-md">Wiek: </label>
-                <Age
-                  key="age"
-                  name="age"
-                  value={valueAge}
-                  onChange={(e) => {
-                    setValueAge(e.target.value);
-                    setAgeLimit(ageRange[e.target.value]);
-                  }}
-                />
+                <Select
+                  placeholder="Wiek..."
+                  value={ageLimit}
+                  onValueChange={setAgeLimit}
+                >
+                  {ageRange.map((age) => (
+                    <SelectItem value={age} key={age}>
+                      {age}
+                    </SelectItem>
+                  ))}
+                </Select>
               </div>
 
               <div className="text-left">
                 <label className="font-bold text-md">Czas [min]: </label>
-                <Time
-                  key="time"
-                  name="time"
-                  value={valueTime}
-                  onChange={(e) => {
-                    setValueTime(e.target.value);
-                    setTimeLimit(timeRange[e.target.value]);
-                  }}
-                />
+                <Select
+                  placeholder="Czas [min]"
+                  value={timeLimit}
+                  onValueChange={setTimeLimit}
+                >
+                  {timeRange.map((time) => (
+                    <SelectItem value={time} key={time}>
+                      {time}
+                    </SelectItem>
+                  ))}
+                </Select>
               </div>
             </div>
             <div>
               <div className="m-2 sm:m-6">
-                <Button disabled={isLoading} />
+                <Button
+                  loadingText="Szukam..."
+                  loading={isLoading}
+                  size="xs"
+                  variant="primary"
+                >
+                  Szukaj
+                </Button>
               </div>
               <div className="text-xs text-indigo-900">
                 <label>Dodatkowe wymagania: </label>
                 <Requirements
                   key="requirements"
                   name="requirements"
-                  label="Bez wymagań"
+                  label="dowolny"
                   value={requir}
                   checked={requir}
                   onChange={() => {
@@ -219,10 +203,15 @@ const Form = () => {
             </div>
           </div>
           <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-            <MultiSelect className="bg-green-600" placeholder="Cel zajęć ...">
-              {checkboxes.map((box) => (
-                <MultiSelectItem className="bg-green-600" value={box.name}>
-                  {box.name}
+            <MultiSelect
+              onValueChange={setCheckboxeshandler}
+              className="bg-green-600"
+              placeholder="Cel zajęć ..."
+              value={checkboxes}
+            >
+              {purposeList.map((purpose) => (
+                <MultiSelectItem key={purpose} value={purpose}>
+                  {purpose}
                 </MultiSelectItem>
               ))}
             </MultiSelect>
