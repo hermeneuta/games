@@ -42,6 +42,3 @@ const Result = ({ games }) => {
 };
 
 export default Result;
-// <div className="font-serif rounded-md text-center max-w-sm sm:max-w-md m-auto md:max-w-lg lg:max-w-2xl bg-indigo-500 p-10 ">
-//   Brak wyników
-// </div>
