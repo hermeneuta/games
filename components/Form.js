@@ -4,14 +4,24 @@ import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
 import { useState, useEffect, useRef } from "react";
+import * as Switch from "@radix-ui/react-switch";
 //Select
-import { Button, Select, SelectItem } from "@tremor/react";
+import {
+  Button,
+  Select,
+  SelectItem,
+  Flex,
+  Card,
+  ColGrid,
+  Col,
+} from "@tremor/react";
 import { CalculatorIcon } from "@heroicons/react/outline";
 //SearchSelect
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
 
 //MultiSelect
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
 const Form = () => {
   const purposeList = [
@@ -144,36 +154,122 @@ const Form = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
-            <div>
-              <div className="text-left">
-                <label className="font-bold text-md">Wiek: </label>
-                <Select
-                  placeholder="Wiek..."
-                  value={ageLimit}
-                  onValueChange={setAgeLimit}
-                >
-                  {ageRange.map((age) => (
-                    <SelectItem value={age} key={age}>
-                      {age}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+            <div className="text-left">
+              <label className="font-bold text-sm">Wiek </label>
+              <Select
+                placeholder="Wiek..."
+                value={ageLimit}
+                onValueChange={setAgeLimit}
+                className="mt-2"
+              >
+                {ageRange.map((age) => (
+                  <SelectItem value={age} key={age}>
+                    {age}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+            <div className="col-span-2 text-left">
+              <label className="font-bold text-sm ">Liczba uczestników </label>
+              <RadioGroup.Root
+                className="flex flex-row gap-2.5 mt-2"
+                defaultValue="default"
+                aria-label="View density"
+              >
+                <div className="flex items-center">
+                  <RadioGroup.Item
+                    className="bg-white w-[21px] h-[21px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+                    value="default"
+                    id="r1"
+                  >
+                    <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11" />
+                  </RadioGroup.Item>
+                  <label
+                    className="text-white text-sm leading-none pl-2"
+                    htmlFor="r1"
+                  >
+                    optymalna
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <RadioGroup.Item
+                    className="bg-white w-[21px] h-[21px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+                    value="comfortable"
+                    id="r2"
+                  >
+                    <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11" />
+                  </RadioGroup.Item>
+                  <label
+                    className="text-white text-sm leading-none pl-2"
+                    htmlFor="r2"
+                  >
+                    mała (do 5 osób)
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <RadioGroup.Item
+                    className="bg-white w-[21px] h-[21px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default"
+                    value="compact"
+                    id="r3"
+                  >
+                    <RadioGroup.Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-violet11" />
+                  </RadioGroup.Item>
+                  <label
+                    className="text-white text-sm leading-none pl-2"
+                    htmlFor="r3"
+                  >
+                    liczna (pow. 15/20)
+                  </label>
+                </div>
+              </RadioGroup.Root>
+            </div>
 
-              <div className="text-left">
-                <label className="font-bold text-md">Czas [min]: </label>
-                <Select
-                  placeholder="Czas [min]"
-                  value={timeLimit}
-                  onValueChange={setTimeLimit}
+            <div>
+              <div className="flex mx-auto justify-between items-center">
+                <label
+                  className="text-white text-[15px] leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
                 >
-                  {timeRange.map((time) => (
-                    <SelectItem value={time} key={time}>
-                      {time}
-                    </SelectItem>
-                  ))}
-                </Select>
+                  Szybka gra
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
+              </div>
+              <div className="flex mx-auto justify-between items-center">
+                <label
+                  className="justify-start text-white text-[15px] leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
+                >
+                  Survival mode
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
+              </div>
+              <div className="flex mx-auto justify-between items-center">
+                <label
+                  className="text-white text-[15px] leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
+                >
+                  Mała przestrzeń
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
               </div>
             </div>
             <div>

@@ -1,3 +1,4 @@
+const { blackA, violet } = require("@radix-ui/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -13,6 +14,8 @@ module.exports = {
         128: "32rem",
       },
       colors: {
+        ...blackA,
+        ...violet,
         // light mode
         tremor: {
           brand: {
