@@ -240,6 +240,9 @@ const Form = () => {
         <div ref={resultRef}>
           {result.length !== 0 ? (
             <div>
+              <div ref={gameRef}>
+                {showGame ? <Game games={showGame} /> : <div></div>}
+              </div>
               <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
                   {result.map((game) => (
@@ -252,9 +255,6 @@ const Form = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div ref={gameRef}>
-                {showGame ? <Game games={showGame} /> : <div></div>}
               </div>
             </div>
           ) : (
