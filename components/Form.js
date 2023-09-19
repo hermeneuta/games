@@ -129,7 +129,7 @@ const Form = () => {
     <>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
             <div className="text-left">
               <label className="font-bold text-sm">Wiek </label>
               <Select
@@ -166,13 +166,13 @@ const Form = () => {
               <div className="flex mb-1 mx-auto justify-between items-center">
                 <label
                   className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="airplane-mode"
+                  htmlFor="fast_game"
                 >
                   Szybka gra
                 </label>
                 <Switch.Root
                   className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="airplane-mode"
+                  id="fast_game"
                   style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
                 >
                   <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
@@ -181,13 +181,13 @@ const Form = () => {
               <div className="flex mb-1 mx-auto justify-between items-center">
                 <label
                   className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="airplane-mode"
+                  htmlFor="small_space"
                 >
                   Mała przestrzeń
                 </label>
                 <Switch.Root
                   className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="airplane-mode"
+                  id="small_space"
                   style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
                 >
                   <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
@@ -196,13 +196,13 @@ const Form = () => {
               <div className="flex mb-1 mx-auto justify-between items-center">
                 <label
                   className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="airplane-mode"
+                  htmlFor="survival"
                 >
                   Survival mode
                 </label>
                 <Switch.Root
                   className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="airplane-mode"
+                  id="survival"
                   style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
                 >
                   <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
