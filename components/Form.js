@@ -4,14 +4,24 @@ import Requirements from "./Requirements";
 import Time from "./Time";
 import Result from "./Result";
 import { useState, useEffect, useRef } from "react";
+import * as Switch from "@radix-ui/react-switch";
 //Select
-import { Button, Select, SelectItem } from "@tremor/react";
+import {
+  Button,
+  Select,
+  SelectItem,
+  Flex,
+  Card,
+  ColGrid,
+  Col,
+} from "@tremor/react";
 import { CalculatorIcon } from "@heroicons/react/outline";
 //SearchSelect
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
 
 //MultiSelect
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
+import * as RadioGroup from "@radix-ui/react-radio-group";
 
 const Form = () => {
   const purposeList = [
@@ -31,7 +41,7 @@ const Form = () => {
   const gameRef = useRef(null);
 
   const ageRange = ["dowolny", "5+", "8+", "10+"];
-  const timeRange = ["dowolny", "5", "5-7", "5-10", "10-15"];
+  const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
 
   const [query, setQuery] = useState({
     purpose: [],
@@ -47,7 +57,7 @@ const Form = () => {
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
-  const [valueTime, setValueTime] = useState(0);
+  const [amount, setAmount] = useState("optymalna");
   const [isLoading, setIsLoading] = useState(false);
   const [showGame, setShowGame] = useState("");
 
@@ -118,10 +128,119 @@ const Form = () => {
   return (
     <>
       <div className="text-center">
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+            <div className="text-left">
+              <label className="font-bold text-sm">Wiek </label>
+              <Select
+                placeholder="Wiek..."
+                value={ageLimit}
+                onValueChange={setAgeLimit}
+                className="mt-1"
+              >
+                {ageRange.map((age) => (
+                  <SelectItem value={age} key={age}>
+                    {age}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+
+            <div className="text-left">
+              <label className="font-bold text-sm">Liczba uczestników</label>
+              <Select
+                placeholder="optymalna"
+                value={amount}
+                onValueChange={setAmount}
+                className="mt-1"
+              >
+                {amountRange.map((age) => (
+                  <SelectItem value={age} key={age}>
+                    {age}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+
+            <div>
+              <div className="flex mb-1 mx-auto justify-between items-center">
+                <label
+                  className="justify-start font-bold text-sm leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
+                >
+                  Szybka gra
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
+              </div>
+              <div className="flex mb-1 mx-auto justify-between items-center">
+                <label
+                  className="justify-start font-bold text-sm leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
+                >
+                  Mała przestrzeń
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
+              </div>
+              <div className="flex mb-1 mx-auto justify-between items-center">
+                <label
+                  className="justify-start font-bold text-sm leading-none pr-[15px]"
+                  htmlFor="airplane-mode"
+                >
+                  Survival mode
+                </label>
+                <Switch.Root
+                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
+                  id="airplane-mode"
+                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
+                >
+                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
+                </Switch.Root>
+              </div>
+            </div>
+            <div>
+              <div className="m-2 sm:m-6">
+                <Button
+                  loadingText="Szukam..."
+                  loading={isLoading}
+                  size="xl"
+                  variant="primary"
+                >
+                  Szukaj
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg ">
+            <MultiSelect
+              onValueChange={setCheckboxeshandler}
+              className="bg-green-600"
+              placeholder="Cel zajęć ..."
+              value={checkboxes}
+            >
+              {purposeList.map((purpose) => (
+                <MultiSelectItem key={purpose} value={purpose}>
+                  {purpose}
+                </MultiSelectItem>
+              ))}
+            </MultiSelect>
+          </div>
+        </form>
         <div ref={resultRef}>
           {result.length !== 0 ? (
             <div>
-              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl border border-blue-400 ">
+              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
                   {result.map((game) => (
                     <li
@@ -142,81 +261,6 @@ const Form = () => {
             <div></div>
           )}
         </div>
-
-        <form onSubmit={handleSubmit}>
-          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
-            <div>
-              <div className="text-left">
-                <label className="font-bold text-md">Wiek: </label>
-                <Select
-                  placeholder="Wiek..."
-                  value={ageLimit}
-                  onValueChange={setAgeLimit}
-                >
-                  {ageRange.map((age) => (
-                    <SelectItem value={age} key={age}>
-                      {age}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </div>
-
-              <div className="text-left">
-                <label className="font-bold text-md">Czas [min]: </label>
-                <Select
-                  placeholder="Czas [min]"
-                  value={timeLimit}
-                  onValueChange={setTimeLimit}
-                >
-                  {timeRange.map((time) => (
-                    <SelectItem value={time} key={time}>
-                      {time}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </div>
-            </div>
-            <div>
-              <div className="m-2 sm:m-6">
-                <Button
-                  loadingText="Szukam..."
-                  loading={isLoading}
-                  size="xs"
-                  variant="primary"
-                >
-                  Szukaj
-                </Button>
-              </div>
-              <div className="text-xs text-indigo-900">
-                <label>Dodatkowe wymagania: </label>
-                <Requirements
-                  key="requirements"
-                  name="requirements"
-                  label="dowolny"
-                  value={requir}
-                  checked={requir}
-                  onChange={() => {
-                    setRequir(!requir);
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
-            <MultiSelect
-              onValueChange={setCheckboxeshandler}
-              className="bg-green-600"
-              placeholder="Cel zajęć ..."
-              value={checkboxes}
-            >
-              {purposeList.map((purpose) => (
-                <MultiSelectItem key={purpose} value={purpose}>
-                  {purpose}
-                </MultiSelectItem>
-              ))}
-            </MultiSelect>
-          </div>
-        </form>
       </div>
     </>
   );
