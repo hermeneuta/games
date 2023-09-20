@@ -15,13 +15,11 @@ import {
   ColGrid,
   Col,
 } from "@tremor/react";
-import { CalculatorIcon } from "@heroicons/react/outline";
-//SearchSelect
-import { SearchSelect, SearchSelectItem } from "@tremor/react";
 
 //MultiSelect
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
-import * as RadioGroup from "@radix-ui/react-radio-group";
+import Switcher from "./Switcher";
+import Dropdown from "./Dropdown";
 
 const Form = () => {
   const purposeList = [
@@ -42,6 +40,48 @@ const Form = () => {
 
   const ageRange = ["dowolny", "5+", "8+", "10+"];
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
+  const rekwizytyRange = [
+    "dowolne",
+    "flower sticks",
+    "piłki",
+    "maczugi",
+    "obręcze",
+    "chustki",
+    "diabolo",
+    "pojki",
+    "chusty",
+    "hula-hoop",
+  ];
+  const stageRange = [
+    "bez znaczenia",
+    "przywitanie",
+    "rozgrzewka",
+    "core",
+    "wyciszenie",
+  ];
+  const fieldRange = [
+    "dowolna",
+    "żonglerka",
+    "akrobatyka",
+    "aerial",
+    "ekwilibrystyka",
+    "performance",
+  ];
+
+  const socialRange = [
+    "dowolne",
+    "integracja",
+    "współpraca",
+    "rywalizacja",
+    "budowanie zaufania",
+  ];
+
+  const technicalRange = [
+    "dowolne",
+    "wzmacnianie",
+    "koordynacja",
+    "rytmizacja",
+  ];
 
   const [query, setQuery] = useState({
     purpose: [],
@@ -51,15 +91,20 @@ const Form = () => {
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
-  const [ageLimit, setAgeLimit] = useState("dowolny");
+  const [ageLimit, setAgeLimit] = useState(ageRange[0]);
   const [timeLimit, setTimeLimit] = useState("dowolny");
   const [purpose, setPurpose] = useState([]);
   const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
-  const [amount, setAmount] = useState("optymalna");
+  const [amount, setAmount] = useState(amountRange[0]);
   const [isLoading, setIsLoading] = useState(false);
   const [showGame, setShowGame] = useState("");
+  const [rekwizyty, setRekwizyty] = useState(rekwizytyRange[0]);
+  const [field, setField] = useState(fieldRange[0]);
+  const [stage, setStage] = useState(stageRange[0]);
+  const [socialAims, setSocialAims] = useState(socialRange[0]);
+  const [technicalAims, setTechnicalAims] = useState(technicalRange[0]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,84 +175,53 @@ const Form = () => {
       <div className="text-center">
         <form onSubmit={handleSubmit}>
           <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
-            <div className="text-left">
-              <label className="font-bold text-sm">Wiek </label>
-              <Select
-                placeholder="Wiek..."
-                value={ageLimit}
-                onValueChange={setAgeLimit}
-                className="mt-1"
-              >
-                {ageRange.map((age) => (
-                  <SelectItem value={age} key={age}>
-                    {age}
-                  </SelectItem>
-                ))}
-              </Select>
-            </div>
-
-            <div className="text-left">
-              <label className="font-bold text-sm">Liczba uczestników</label>
-              <Select
-                placeholder="optymalna"
-                value={amount}
-                onValueChange={setAmount}
-                className="mt-1"
-              >
-                {amountRange.map((age) => (
-                  <SelectItem value={age} key={age}>
-                    {age}
-                  </SelectItem>
-                ))}
-              </Select>
-            </div>
+            <Dropdown
+              categoryName="Wiek"
+              value={ageLimit}
+              onChange={setAgeLimit}
+              catRange={ageRange}
+            />
+            <Dropdown
+              categoryName="Liczba uczestników"
+              value={amount}
+              onChange={setAmount}
+              catRange={amountRange}
+            />
+            <Dropdown
+              categoryName="Etap zajęć"
+              value={stage}
+              onChange={setStage}
+              catRange={stageRange}
+            />
+            <Dropdown
+              categoryName="Dziedzina"
+              value={field}
+              onChange={setField}
+              catRange={fieldRange}
+            />
+            <Dropdown
+              categoryName="Rekwizyty"
+              value={rekwizyty}
+              onChange={setRekwizyty}
+              catRange={rekwizytyRange}
+            />
+            <Dropdown
+              categoryName="Cele techniczne"
+              value={socialAims}
+              onChange={setSocialAims}
+              catRange={socialRange}
+            />
+            <Dropdown
+              categoryName="Cele społeczne"
+              value={technicalAims}
+              onChange={setTechnicalAims}
+              catRange={technicalRange}
+            />
 
             <div>
-              <div className="flex mb-1 mx-auto justify-between items-center">
-                <label
-                  className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="fast_game"
-                >
-                  Szybka gra
-                </label>
-                <Switch.Root
-                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="fast_game"
-                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
-                >
-                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
-                </Switch.Root>
-              </div>
-              <div className="flex mb-1 mx-auto justify-between items-center">
-                <label
-                  className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="small_space"
-                >
-                  Mała przestrzeń
-                </label>
-                <Switch.Root
-                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="small_space"
-                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
-                >
-                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
-                </Switch.Root>
-              </div>
-              <div className="flex mb-1 mx-auto justify-between items-center">
-                <label
-                  className="justify-start font-bold text-sm leading-none pr-[15px]"
-                  htmlFor="survival"
-                >
-                  Survival mode
-                </label>
-                <Switch.Root
-                  className="w-[42px] h-[25px] bg-blackA9 rounded-full relative shadow-[0_2px_10px] shadow-blackA7 focus:shadow-[0_0_0_2px] focus:shadow-black data-[state=checked]:bg-black outline-none cursor-default"
-                  id="survival"
-                  style={{ "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)" }}
-                >
-                  <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full shadow-[0_2px_2px] shadow-blackA7 transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
-                </Switch.Root>
-              </div>
+              <Switcher id="fast_game" categoryName="Szybka gra" />
+              <Switcher id="small_space" categoryName="Mała przestrzeń" />
+              <Switcher id="survival" categoryName="Survival mode" />
             </div>
             <div>
               <div className="m-2 sm:m-6">
@@ -225,7 +239,6 @@ const Form = () => {
           <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg ">
             <MultiSelect
               onValueChange={setCheckboxeshandler}
-              className="bg-green-600"
               placeholder="Cel zajęć ..."
               value={checkboxes}
             >
@@ -237,6 +250,7 @@ const Form = () => {
             </MultiSelect>
           </div>
         </form>
+
         <div ref={resultRef}>
           {result.length !== 0 ? (
             <div>
