@@ -1,25 +1,16 @@
 import axios from "axios";
 import Game from "./Game";
-import Requirements from "./Requirements";
-import Time from "./Time";
-import Result from "./Result";
 import { useState, useEffect, useRef } from "react";
-import * as Switch from "@radix-ui/react-switch";
 //Select
-import {
-  Button,
-  Select,
-  SelectItem,
-  Flex,
-  Card,
-  ColGrid,
-  Col,
-} from "@tremor/react";
+import { Button } from "@tremor/react";
 
 //MultiSelect
 import { MultiSelect, MultiSelectItem } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
+import * as Collapsible from "@radix-ui/react-collapsible";
+import { RowSpacingIcon, Cross2Icon } from "@radix-ui/react-icons";
+import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
   const purposeList = [
@@ -53,7 +44,7 @@ const Form = () => {
     "hula-hoop",
   ];
   const stageRange = [
-    "bez znaczenia",
+    "dowolny",
     "przywitanie",
     "rozgrzewka",
     "core",
@@ -105,6 +96,7 @@ const Form = () => {
   const [stage, setStage] = useState(stageRange[0]);
   const [socialAims, setSocialAims] = useState(socialRange[0]);
   const [technicalAims, setTechnicalAims] = useState(technicalRange[0]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,51 +166,77 @@ const Form = () => {
     <>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
-          <div className="grid sm:grid-cols-2 font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-4 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
-            <Dropdown
-              categoryName="Wiek"
-              value={ageLimit}
-              onChange={setAgeLimit}
-              catRange={ageRange}
-            />
-            <Dropdown
-              categoryName="Liczba uczestników"
-              value={amount}
-              onChange={setAmount}
-              catRange={amountRange}
-            />
-            <Dropdown
-              categoryName="Etap zajęć"
-              value={stage}
-              onChange={setStage}
-              catRange={stageRange}
-            />
-            <Dropdown
-              categoryName="Dziedzina"
-              value={field}
-              onChange={setField}
-              catRange={fieldRange}
-            />
-            <Dropdown
-              categoryName="Rekwizyty"
-              value={rekwizyty}
-              onChange={setRekwizyty}
-              catRange={rekwizytyRange}
-            />
-            <Dropdown
-              categoryName="Cele techniczne"
-              value={socialAims}
-              onChange={setSocialAims}
-              catRange={socialRange}
-            />
-            <Dropdown
-              categoryName="Cele społeczne"
-              value={technicalAims}
-              onChange={setTechnicalAims}
-              catRange={technicalRange}
-            />
+          <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-blue-400 ">
+            <div className="grid mx-auto items-center sm:grid-cols-2">
+              <Dropdown
+                categoryName="Wiek"
+                value={ageLimit}
+                onChange={setAgeLimit}
+                catRange={ageRange}
+              />
+              <Dropdown
+                categoryName="Liczba uczestników"
+                value={amount}
+                onChange={setAmount}
+                catRange={amountRange}
+              />
+            </div>
+            <Collapsible.Root open={open} onOpenChange={setOpen}>
+              <div
+                className="mr-32 ml-32 mt-4 mb-4 sm:mr-40 sm:ml-40"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span className="text-xs font-extralight">więcej...</span>
+                <Collapsible.Trigger asChild>
+                  <button className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
+                    {open ? <Cross2Icon /> : <RowSpacingIcon />}
+                  </button>
+                </Collapsible.Trigger>
+              </div>
 
-            <div>
+              <Collapsible.Content className="grid sm:grid-cols-2">
+                <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
+                <Dropdown
+                  categoryName="Etap zajęć"
+                  value={stage}
+                  onChange={setStage}
+                  catRange={stageRange}
+                />
+                <Dropdown
+                  categoryName="Dziedzina"
+                  value={field}
+                  onChange={setField}
+                  catRange={fieldRange}
+                />
+                <div className="sm:col-span-2">
+                  <Dropdown
+                    categoryName="Rekwizyty"
+                    value={rekwizyty}
+                    onChange={setRekwizyty}
+                    catRange={rekwizytyRange}
+                  />
+                </div>
+                <Dropdown
+                  categoryName="Cele społeczne"
+                  value={socialAims}
+                  onChange={setSocialAims}
+                  catRange={socialRange}
+                />
+                <Dropdown
+                  categoryName="Cele techniczne"
+                  value={technicalAims}
+                  onChange={setTechnicalAims}
+                  catRange={technicalRange}
+                />
+                <div className="mt-5"></div>
+              </Collapsible.Content>
+            </Collapsible.Root>
+            <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
+            <div className="mr-20 ml-20 mt-5 mb-5 sm:mr-28 sm:ml-28">
               <Switcher id="fast_game" categoryName="Szybka gra" />
               <Switcher id="small_space" categoryName="Mała przestrzeń" />
               <Switcher id="survival" categoryName="Survival mode" />
@@ -226,6 +244,7 @@ const Form = () => {
             <div>
               <div className="m-2 sm:m-6">
                 <Button
+                  className="shadow-md"
                   loadingText="Szukam..."
                   loading={isLoading}
                   size="xl"
@@ -236,28 +255,14 @@ const Form = () => {
               </div>
             </div>
           </div>
-          <div className="font-serif text-indigo-950 shadow-md p-4 bg-indigo-300 rounded-md border border-blue-400 m-auto max-w-sm sm:max-w-md md:max-w-lg ">
-            <MultiSelect
-              onValueChange={setCheckboxeshandler}
-              placeholder="Cel zajęć ..."
-              value={checkboxes}
-            >
-              {purposeList.map((purpose) => (
-                <MultiSelectItem key={purpose} value={purpose}>
-                  {purpose}
-                </MultiSelectItem>
-              ))}
-            </MultiSelect>
-          </div>
         </form>
-
         <div ref={resultRef}>
           {result.length !== 0 ? (
             <div>
               <div ref={gameRef}>
                 {showGame ? <Game games={showGame} /> : <div></div>}
               </div>
-              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:max-w-lg border border-blue-400 ">
+              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-blue-400 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
                   {result.map((game) => (
                     <li
