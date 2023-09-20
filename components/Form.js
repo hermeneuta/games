@@ -183,7 +183,7 @@ const Form = () => {
             </div>
             <Collapsible.Root open={open} onOpenChange={setOpen}>
               <div
-                className="mr-28 ml-28 mt-4 mb-4 sm:mr-40 sm:ml-40"
+                className="mr-24 ml-24 mt-4 mb-4 sm:mr-40 sm:ml-40"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -236,7 +236,7 @@ const Form = () => {
               </Collapsible.Content>
             </Collapsible.Root>
             <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
-            <div className="mr-16 ml-16 mt-5 mb-5 sm:mr-28 sm:ml-28">
+            <div className="mr-14 ml-14 mt-5 mb-5 sm:mr-28 sm:ml-28">
               <Switcher id="fast_game" categoryName="Szybka gra" />
               <Switcher id="small_space" categoryName="Mała przestrzeń" />
               <Switcher id="survival" categoryName="Survival mode" />
