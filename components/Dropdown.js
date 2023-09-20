@@ -2,7 +2,7 @@ import { Select, SelectItem } from "@tremor/react";
 
 const Dropdown = ({ categoryName, value, onChange, catRange }) => {
   return (
-    <div className="text-left sm:text-center mr-20 ml-20 sm:mr-5 sm:ml-5">
+    <div className="text-left sm:text-center mr-16 ml-16 sm:mr-5 sm:ml-5">
       <label className="font-bold text-sm">{categoryName}</label>
       <Select value={value} onValueChange={onChange} className="p-1">
         {catRange.map((catItem) => (
