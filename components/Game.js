@@ -2,7 +2,7 @@ const Game = ({ games }) => {
   return (
     <>
       {games !== "" ? (
-        <div className="font-serif shadow-md text-indigo-950 text-sm text-left bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:h-96 border border-blue-400 h-full">
+        <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:h-96 border border-lime-800 h-full">
           <div className="text-center font-bold">{games[0].game}</div>
           <div className="grid grid-cols-2 text-center p-2">
             <div>Wiek: {games[0].age}</div>

@@ -166,7 +166,7 @@ const Form = () => {
     <>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
-          <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-blue-400 ">
+          <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-800 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
             <div className="grid mx-auto items-center sm:grid-cols-2">
               <Dropdown
                 categoryName="Wiek"
@@ -261,13 +261,13 @@ const Form = () => {
               <div ref={gameRef}>
                 {showGame ? <Game games={showGame} /> : <div></div>}
               </div>
-              <div className="font-serif shadow-md text-indigo-950 bg-indigo-300 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-blue-400 ">
+              <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
                   {result.map((game) => (
                     <li
                       key={game._id}
                       onClick={handleClick}
-                      className="bg-indigo-300 hover:bg-indigo-500 border border-indigo-500 rounded-md p-2 m-1 font-bold text-xs text-indigo-900 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
+                      className="bg-lime-750 hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
                     >
                       <div>{game.game}</div>
                     </li>

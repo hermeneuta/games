@@ -14,6 +14,7 @@ module.exports = {
         128: "32rem",
       },
       colors: {
+        first: "bg-gradient-to-t from-lime-500 bg-lime-800",
         ...blackA,
         ...violet,
         // light mode
@@ -52,9 +53,9 @@ module.exports = {
             faint: "#0B1229", // custom
             muted: "#172554", // blue-950
             subtle: "#1e40af", // blue-800
-            DEFAULT: "#3b82f6", // blue-500
-            emphasis: "#60a5fa", // blue-400
-            inverted: "#030712", // gray-950
+            DEFAULT: "#1a2e05", // blue-500
+            emphasis: "#365314", // blue-400
+            inverted: "#d1d5db", // gray-950
           },
           background: {
             muted: "#131A2B", // custom
@@ -71,7 +72,7 @@ module.exports = {
           content: {
             subtle: "#4b5563", // gray-600
             DEFAULT: "#6b7280", // gray-500
-            emphasis: "#e5e7eb", // gray-200
+            emphasis: "#d1d5db", // gray-200
             strong: "#f9fafb", // gray-50
             inverted: "#000000", // black
           },
@@ -99,7 +100,7 @@ module.exports = {
       },
       fontSize: {
         "tremor-label": ["0.75rem"],
-        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-default": ["0.775rem", { lineHeight: "1.25rem" }],
         "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
