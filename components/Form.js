@@ -13,18 +13,6 @@ import { RowSpacingIcon, Cross2Icon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
-  const purposeList = [
-    "rozgrzewka",
-    "rywalizacja",
-    "świadomość ciała",
-    "świadomość przestrzeni",
-    "współpraca",
-    "rozpoznanie ról w grupie",
-    "integracja",
-    "odgrywanie ról",
-    "improwizacja",
-  ];
-
   const resultRef = useRef(null);
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
