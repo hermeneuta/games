@@ -21,7 +21,7 @@ const Form = () => {
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
   const rekwizytyRange = [
     "dowolne",
-    "flower sticks",
+    "flowersticks",
     "piłki",
     "maczugi",
     "obręcze",
