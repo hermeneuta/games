@@ -17,7 +17,7 @@ const Form = () => {
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
 
-  const ageRange = ["dowolny", "5+", "8+", "10+"];
+  const ageRange = ["dowolny", "5-7", "8-11", "12-16", "16+"];
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
   const rekwizytyRange = [
     "dowolne",
