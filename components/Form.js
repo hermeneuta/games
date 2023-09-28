@@ -13,27 +13,15 @@ import { RowSpacingIcon, Cross2Icon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
-  const purposeList = [
-    "rozgrzewka",
-    "rywalizacja",
-    "świadomość ciała",
-    "świadomość przestrzeni",
-    "współpraca",
-    "rozpoznanie ról w grupie",
-    "integracja",
-    "odgrywanie ról",
-    "improwizacja",
-  ];
-
   const resultRef = useRef(null);
   //Odwołanie do opisu gry
   const gameRef = useRef(null);
 
-  const ageRange = ["dowolny", "5+", "8+", "10+"];
+  const ageRange = ["dowolny", "5-7", "8-11", "12-16", "16+"];
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
   const rekwizytyRange = [
     "dowolne",
-    "flower sticks",
+    "flowersticks",
     "piłki",
     "maczugi",
     "obręcze",
