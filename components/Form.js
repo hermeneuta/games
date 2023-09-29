@@ -28,14 +28,14 @@ const Form = () => {
     "chustki",
     "diabolo",
     "pojki",
-    "chusty",
+    "szarfy",
     "hula-hoop",
   ];
   const stageRange = [
     "dowolny",
     "przywitanie",
     "rozgrzewka",
-    "core",
+    "część główna",
     "wyciszenie",
   ];
   const fieldRange = [
