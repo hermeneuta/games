@@ -1,6 +1,19 @@
 import clientPromise from "../../lib/mongodb";
 
 export default async (req, res) => {
+  if (req.method === "GET") {
+    try {
+      const client = await clientPromise;
+      const db = client.db("Pedagogy");
+      const games = await db.collection("games").find({}).toArray();
+      console.log(client.connections);
+      res.json(games);
+    } catch (err) {
+      console.error("Error");
+      res.error(500).send("Problem with DB query");
+    }
+  }
+
   if (req.method === "POST") {
     try {
       const { purpose, ageLimit, timeLimit, requir } = req.body;

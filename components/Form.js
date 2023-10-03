@@ -150,6 +150,7 @@ const Form = () => {
     console.log("changing to: ", val);
     setCheckboxes(val);
   };
+
   return (
     <>
       <div className="text-center">
