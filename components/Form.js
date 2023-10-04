@@ -73,6 +73,7 @@ const Form = () => {
     technical: "",
     fastGame: false,
     smallSpace: false,
+    survival: false,
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
@@ -93,6 +94,7 @@ const Form = () => {
   const [open, setOpen] = useState(false);
   const [fastGame, setFastGame] = useState(false);
   const [smallSpace, setSmallSpace] = useState(false);
+  const [survival, setSurvival] = useState(false);
 
   const handleFastGame = () => {
     setFastGame(!fastGame);
@@ -100,6 +102,10 @@ const Form = () => {
 
   const handleSmallSpace = () => {
     setSmallSpace(!smallSpace);
+  };
+
+  const handleSurvival = () => {
+    setSurvival(!survival);
   };
 
   useEffect(() => {
@@ -119,6 +125,7 @@ const Form = () => {
             technical: technicalAims,
             fastGame: fastGame,
             smallSpace: smallSpace,
+            survival: survival,
           });
           setResult(response.data);
         } catch (err) {
@@ -158,6 +165,7 @@ const Form = () => {
         technical: technicalAims,
         fastGame: fastGame,
         smallSpace: smallSpace,
+        survival: survival,
       });
 
       setSubmitted(query);
@@ -267,7 +275,12 @@ const Form = () => {
                 changed={smallSpace}
                 handleChange={handleSmallSpace}
               />
-              <Switcher id="survival" categoryName="Survival mode" />
+              <Switcher
+                id="survival"
+                categoryName="Survival mode"
+                changed={survival}
+                handleChange={handleSurvival}
+              />
             </div>
             <div>
               <div className="m-2 sm:m-6">
