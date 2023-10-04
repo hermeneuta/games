@@ -63,10 +63,14 @@ const Form = () => {
   ];
 
   const [query, setQuery] = useState({
-    purpose: [],
     age: "",
     time: "",
-    requir: "",
+    amount: "",
+    props: "",
+    field: "",
+    stage: "",
+    social: "",
+    technical: "",
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
@@ -90,12 +94,17 @@ const Form = () => {
     const fetchData = async () => {
       if (submitted) {
         try {
+          console.log(query);
           setIsLoading(true);
           const response = await axios.post("/api/search", {
-            purpose,
-            ageLimit,
-            timeLimit,
-            requir,
+            age: ageLimit,
+            time: timeLimit,
+            amount: amount,
+            stage: stage,
+            field: field,
+            props: rekwizyty,
+            social: socialAims,
+            technical: technicalAims,
           });
           setResult(response.data);
         } catch (err) {
@@ -116,22 +125,27 @@ const Form = () => {
 
     e.preventDefault();
     setShowGame(false);
+    console.log(ageLimit);
 
     try {
+      //Przypadek dropdownu w wieloma opcjami do wyboru
       const purpose = checkboxes;
-
       setPurpose(purpose);
+
+      //Budowanie obiektu zapytania (query)
       setQuery({
         ...query,
-        purpose: purpose,
         age: ageLimit,
         time: timeLimit,
-        requir: requir,
+        amount: amount,
+        stage: stage,
+        field: field,
+        props: rekwizyty,
+        social: socialAims,
+        technical: technicalAims,
       });
-      setSubmitted(query);
 
-      console.log(checkboxes);
-      console.log(query);
+      setSubmitted(query);
     } catch (error) {
       alert("An error occurred. Please try again.");
     }

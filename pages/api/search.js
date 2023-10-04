@@ -1,49 +1,36 @@
 import clientPromise from "../../lib/mongodb";
 
 export default async (req, res) => {
-  if (req.method === "GET") {
-    try {
-      const client = await clientPromise;
-      const db = client.db("Pedagogy");
-      const games = await db.collection("games").find({}).toArray();
-      console.log(client.connections);
-      res.json(games);
-    } catch (err) {
-      console.error("Error");
-      res.error(500).send("Problem with DB query");
-    }
-  }
-
   if (req.method === "POST") {
     try {
-      const { purpose, ageLimit, timeLimit, requir } = req.body;
+      const { age, amount, stage, field, props, social, technical } = req.body;
       const client = await clientPromise;
       const db = client.db("Pedagogy");
-      let ageQuery;
-      let timeQuery;
-      let purposeQuery;
 
-      if (ageLimit === "dowolny") {
-        ageQuery = { age: { $exists: true } };
-      } else ageQuery = { age: ageLimit };
+      const ageQuery = age === "dowolny" ? {} : { age: { $in: [age] } };
 
-      if (timeLimit === "dowolny") {
-        timeQuery = { time: { $exists: true } };
-      } else timeQuery = { time: timeLimit };
+      const amountQuery = amount === "optymalna" ? {} : { amount };
 
-      if (purpose.length === 0) {
-        purposeQuery = { purpose: { $exists: true } };
-      } else {
-        // Create an array of purpose regex queries
-        const purposeQueries = purpose.map((purp) => ({
-          purpose: { $regex: purp.trim(), $options: "i" },
-        }));
-        purposeQuery = { $and: purposeQueries };
-      }
+      const stageQuery = stage === "dowolny" ? {} : { stage };
+
+      const fieldQuery = field === "dowolna" ? {} : { field: { $in: [field] } };
+      const propsQuery = props === "dowolne" ? {} : { props: { $in: [props] } };
+      const socialQuery =
+        social === "dowolne" ? {} : { social: { $in: [social] } };
+      const technicalQuery =
+        technical === "dowolne" ? {} : { technical: { $in: [technical] } };
 
       // Define a query
       const query = {
-        $and: [purposeQuery, ageQuery, timeQuery],
+        $and: [
+          ageQuery,
+          amountQuery,
+          stageQuery,
+          fieldQuery,
+          propsQuery,
+          socialQuery,
+          technicalQuery,
+        ],
       };
 
       // const sampleStage = { $sample: { size: 5 } };
