@@ -28,14 +28,14 @@ const Form = () => {
     "chustki",
     "diabolo",
     "pojki",
-    "chusty",
+    "szarfy",
     "hula-hoop",
   ];
   const stageRange = [
     "dowolny",
     "przywitanie",
     "rozgrzewka",
-    "core",
+    "część główna",
     "wyciszenie",
   ];
   const fieldRange = [
@@ -150,6 +150,7 @@ const Form = () => {
     console.log("changing to: ", val);
     setCheckboxes(val);
   };
+
   return (
     <>
       <div className="text-center">
