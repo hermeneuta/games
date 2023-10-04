@@ -71,6 +71,7 @@ const Form = () => {
     stage: "",
     social: "",
     technical: "",
+    fastGame: false,
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
@@ -89,12 +90,17 @@ const Form = () => {
   const [socialAims, setSocialAims] = useState(socialRange[0]);
   const [technicalAims, setTechnicalAims] = useState(technicalRange[0]);
   const [open, setOpen] = useState(false);
+  const [fastGame, setFastGame] = useState(false);
+
+  const handleFastGame = () => {
+    setFastGame(!fastGame);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(query);
       if (submitted) {
         try {
-          console.log(query);
           setIsLoading(true);
           const response = await axios.post("/api/search", {
             age: ageLimit,
@@ -105,6 +111,7 @@ const Form = () => {
             props: rekwizyty,
             social: socialAims,
             technical: technicalAims,
+            fastGame: fastGame,
           });
           setResult(response.data);
         } catch (err) {
@@ -125,7 +132,6 @@ const Form = () => {
 
     e.preventDefault();
     setShowGame(false);
-    console.log(ageLimit);
 
     try {
       //Przypadek dropdownu w wieloma opcjami do wyboru
@@ -143,6 +149,7 @@ const Form = () => {
         props: rekwizyty,
         social: socialAims,
         technical: technicalAims,
+        fastGame: fastGame,
       });
 
       setSubmitted(query);
@@ -240,7 +247,12 @@ const Form = () => {
             </Collapsible.Root>
             <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
             <div className="mr-14 ml-14 mt-5 mb-5 sm:mr-28 sm:ml-28">
-              <Switcher id="fast_game" categoryName="Szybka gra" />
+              <Switcher
+                id="fast_game"
+                categoryName="Szybka gra"
+                changed={fastGame}
+                handleChange={handleFastGame}
+              />
               <Switcher id="small_space" categoryName="Mała przestrzeń" />
               <Switcher id="survival" categoryName="Survival mode" />
             </div>
