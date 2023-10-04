@@ -3,7 +3,18 @@ import clientPromise from "../../lib/mongodb";
 export default async (req, res) => {
   if (req.method === "POST") {
     try {
-      const { age, amount, stage, field, props, social, technical } = req.body;
+      const {
+        age,
+        amount,
+        stage,
+        field,
+        props,
+        social,
+        technical,
+        smallSpace,
+        fastGame,
+        survival,
+      } = req.body;
       const client = await clientPromise;
       const db = client.db("Pedagogy");
 
@@ -19,6 +30,9 @@ export default async (req, res) => {
         social === "dowolne" ? {} : { social: { $in: [social] } };
       const technicalQuery =
         technical === "dowolne" ? {} : { technical: { $in: [technical] } };
+      const smallSpaceQuery = smallSpace === false ? {} : { smallSpace: "yes" };
+      const fastGameQuery = fastGame === false ? {} : { fastGame: "yes" };
+      const survivalQuery = survival === false ? {} : { survival: "yes" };
 
       // Define a query
       const query = {
@@ -30,6 +44,9 @@ export default async (req, res) => {
           propsQuery,
           socialQuery,
           technicalQuery,
+          smallSpaceQuery,
+          fastGameQuery,
+          survivalQuery,
         ],
       };
 
