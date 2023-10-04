@@ -72,6 +72,7 @@ const Form = () => {
     social: "",
     technical: "",
     fastGame: false,
+    smallSpace: false,
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
@@ -91,9 +92,14 @@ const Form = () => {
   const [technicalAims, setTechnicalAims] = useState(technicalRange[0]);
   const [open, setOpen] = useState(false);
   const [fastGame, setFastGame] = useState(false);
+  const [smallSpace, setSmallSpace] = useState(false);
 
   const handleFastGame = () => {
     setFastGame(!fastGame);
+  };
+
+  const handleSmallSpace = () => {
+    setSmallSpace(!smallSpace);
   };
 
   useEffect(() => {
@@ -112,6 +118,7 @@ const Form = () => {
             social: socialAims,
             technical: technicalAims,
             fastGame: fastGame,
+            smallSpace: smallSpace,
           });
           setResult(response.data);
         } catch (err) {
@@ -150,6 +157,7 @@ const Form = () => {
         social: socialAims,
         technical: technicalAims,
         fastGame: fastGame,
+        smallSpace: smallSpace,
       });
 
       setSubmitted(query);
@@ -253,7 +261,12 @@ const Form = () => {
                 changed={fastGame}
                 handleChange={handleFastGame}
               />
-              <Switcher id="small_space" categoryName="Mała przestrzeń" />
+              <Switcher
+                id="small_space"
+                categoryName="Mała przestrzeń"
+                changed={smallSpace}
+                handleChange={handleSmallSpace}
+              />
               <Switcher id="survival" categoryName="Survival mode" />
             </div>
             <div>
