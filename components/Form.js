@@ -63,10 +63,17 @@ const Form = () => {
   ];
 
   const [query, setQuery] = useState({
-    purpose: [],
     age: "",
     time: "",
-    requir: "",
+    amount: "",
+    props: "",
+    field: "",
+    stage: "",
+    social: "",
+    technical: "",
+    fastGame: false,
+    smallSpace: false,
+    survival: false,
   });
 
   const [checkboxes, setCheckboxes] = useState([]);
@@ -85,17 +92,40 @@ const Form = () => {
   const [socialAims, setSocialAims] = useState(socialRange[0]);
   const [technicalAims, setTechnicalAims] = useState(technicalRange[0]);
   const [open, setOpen] = useState(false);
+  const [fastGame, setFastGame] = useState(false);
+  const [smallSpace, setSmallSpace] = useState(false);
+  const [survival, setSurvival] = useState(false);
+
+  const handleFastGame = () => {
+    setFastGame(!fastGame);
+  };
+
+  const handleSmallSpace = () => {
+    setSmallSpace(!smallSpace);
+  };
+
+  const handleSurvival = () => {
+    setSurvival(!survival);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(query);
       if (submitted) {
         try {
           setIsLoading(true);
           const response = await axios.post("/api/search", {
-            purpose,
-            ageLimit,
-            timeLimit,
-            requir,
+            age: ageLimit,
+            time: timeLimit,
+            amount: amount,
+            stage: stage,
+            field: field,
+            props: rekwizyty,
+            social: socialAims,
+            technical: technicalAims,
+            fastGame: fastGame,
+            smallSpace: smallSpace,
+            survival: survival,
           });
           setResult(response.data);
         } catch (err) {
@@ -118,20 +148,27 @@ const Form = () => {
     setShowGame(false);
 
     try {
+      //Przypadek dropdownu w wieloma opcjami do wyboru
       const purpose = checkboxes;
-
       setPurpose(purpose);
+
+      //Budowanie obiektu zapytania (query)
       setQuery({
         ...query,
-        purpose: purpose,
         age: ageLimit,
         time: timeLimit,
-        requir: requir,
+        amount: amount,
+        stage: stage,
+        field: field,
+        props: rekwizyty,
+        social: socialAims,
+        technical: technicalAims,
+        fastGame: fastGame,
+        smallSpace: smallSpace,
+        survival: survival,
       });
-      setSubmitted(query);
 
-      console.log(checkboxes);
-      console.log(query);
+      setSubmitted(query);
     } catch (error) {
       alert("An error occurred. Please try again.");
     }
@@ -226,9 +263,24 @@ const Form = () => {
             </Collapsible.Root>
             <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
             <div className="mr-14 ml-14 mt-5 mb-5 sm:mr-28 sm:ml-28">
-              <Switcher id="fast_game" categoryName="Szybka gra" />
-              <Switcher id="small_space" categoryName="Mała przestrzeń" />
-              <Switcher id="survival" categoryName="Survival mode" />
+              <Switcher
+                id="fast_game"
+                categoryName="Szybka gra"
+                changed={fastGame}
+                handleChange={handleFastGame}
+              />
+              <Switcher
+                id="small_space"
+                categoryName="Mała przestrzeń"
+                changed={smallSpace}
+                handleChange={handleSmallSpace}
+              />
+              <Switcher
+                id="survival"
+                categoryName="Survival mode"
+                changed={survival}
+                handleChange={handleSurvival}
+              />
             </div>
             <div>
               <div className="m-2 sm:m-6">
