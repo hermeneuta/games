@@ -20,9 +20,10 @@ export default async (req, res) => {
 
       const ageQuery = age === "dowolny" ? {} : { age: { $in: [age] } };
 
-      const amountQuery = amount === "optymalna" ? {} : { amount };
+      const amountQuery =
+        amount === "optymalna" ? {} : { amount: { $in: [amount] } };
 
-      const stageQuery = stage === "dowolny" ? {} : { stage };
+      const stageQuery = stage === "dowolny" ? {} : { stage: { $in: [stage] } };
 
       const fieldQuery = field === "dowolna" ? {} : { field: { $in: [field] } };
       const propsQuery = props === "dowolne" ? {} : { props: { $in: [props] } };
