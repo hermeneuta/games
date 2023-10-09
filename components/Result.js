@@ -12,7 +12,7 @@ const Result = ({ games }) => {
     setShowGame(show_game);
     myRef.current.scrollIntoView({ behavior: "smooth" });
   };
-  console.log("showGame: ", showGame);
+  console.log("From Result: ", games);
   return (
     <>
       {games.length !== 0 ? (

@@ -1,10 +1,22 @@
-const Game = ({ games }) => {
+import { useState } from "react";
+
+const Game = ({ games, handleNav }) => {
+  const handlePrev = () => {
+    handleNav("prev");
+  };
+  const handleNext = () => {
+    handleNav("next");
+  };
+
   return (
     <>
       {games !== "" ? (
         <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:h-128 border border-lime-800 h-full">
           <div className="flex justify-between p-4 ">
-            <div className="border-4 self-center p-2 w-10 h-10 border-lime-800/80 rounded-3xl">
+            <div
+              onClick={handlePrev}
+              className="border-4 self-center hover:cursor-pointer p-2 w-10 h-10 border-lime-800/80 rounded-3xl"
+            >
               <svg
                 width="15"
                 height="15"
@@ -23,9 +35,12 @@ const Game = ({ games }) => {
               </svg>
             </div>
             <div className="text-center font-bold h-14 w-64 uppercase tracking-wide pt-4">
-              {games[0].game}
+              {games.game}
             </div>
-            <div className="border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl">
+            <div
+              onClick={handleNext}
+              className="hover:cursor-pointer border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl"
+            >
               <svg
                 width="15"
                 height="15"
@@ -44,38 +59,38 @@ const Game = ({ games }) => {
               </svg>
             </div>
           </div>
-          <div className="grid text-left space-y-2 w-80 h-52 m-auto p-2 border-2 rounded-xl font-light border-lime-800">
+          <div className="grid text-sm text-left space-y-2 w-80 h-52 m-auto p-2 border-2 rounded-xl font-light border-lime-800">
             <div>
               <span className="font-semibold">Etap:</span>{" "}
-              {games[0].stage?.join(", ")}
+              {games.stage?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Wiek:</span>{" "}
-              {games[0].age.join(", ")}
+              {games.age.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Dziedzina:</span>{" "}
-              {games[0].field?.join(", ")}
+              {games.field?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Rekwizyty:</span>{" "}
-              {games[0].props?.join(", ")}
+              {games.props?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">C. społeczne:</span>{" "}
-              {games[0].social?.join(", ")}
+              {games.social?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">C. techniczne:</span>{" "}
-              {games[0].technical?.join(", ")}
+              {games.technical?.join(", ")}
             </div>
           </div>
-          <div className="italic text-center p-2">{games[0].purpose}</div>
+          <div className="italic text-center p-2">{games.purpose}</div>
           <div className="text-left tracking-wide font-serif line-clamp-3 m-4">
-            {games[0].descr}
+            {games.descr}
           </div>
-          {games[0].needs ? (
-            <div className="mt-2 text-center">Potrzeby: {games[0].needs}</div>
+          {games.needs ? (
+            <div className="mt-2 text-center">Potrzeby: {games.needs}</div>
           ) : (
             <div></div>
           )}

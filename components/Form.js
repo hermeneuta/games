@@ -174,12 +174,33 @@ const Form = () => {
     }
   };
 
+  const handleNav = (info) => {
+    //Znalezienie indexu obecnie wyświetlanej gry
+    let idx = result.findIndex((el) => el._id === showGame._id);
+    console.log(idx, result);
+
+    //Modyfikacja indeksu w zależności od decyzji użytkownika
+    if (info === "next") {
+      const mod = idx === result.length - 1 ? 0 : idx + 1;
+      console.log(idx, mod);
+      const next_game = result[mod];
+      console.log(next_game);
+      setShowGame(next_game);
+    } else {
+      console.log("prev");
+      const mod = idx === 0 ? result.length - 1 : idx - 1;
+      const prev_game = result[mod];
+      console.log(prev_game);
+      setShowGame(prev_game);
+    }
+  };
+
   //Obsługa kliknięcia w nazwę gry
   const handleClick = (e) => {
     e.preventDefault();
     const game_name = e.target.textContent;
     const show_game = result.filter((game) => game.game === game_name);
-    setShowGame(show_game);
+    setShowGame(...show_game);
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -300,7 +321,11 @@ const Form = () => {
           {result.length !== 0 ? (
             <div>
               <div ref={gameRef}>
-                {showGame ? <Game games={showGame} /> : <div></div>}
+                {showGame ? (
+                  <Game games={showGame} handleNav={handleNav} />
+                ) : (
+                  <div></div>
+                )}
               </div>
               <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
