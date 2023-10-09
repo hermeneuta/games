@@ -1,12 +1,21 @@
 import { useState } from "react";
 
-const Game = ({ games, handleNav }) => {
+const Game = ({ games, handleNav, results }) => {
   const handlePrev = () => {
     handleNav("prev");
   };
   const handleNext = () => {
     handleNav("next");
   };
+  let odm;
+
+  if (results === 1) {
+    odm = "gra";
+  } else if (results === 2 || results === 3 || results === 4) {
+    odm = "gry";
+  } else {
+    odm = "gier";
+  }
 
   return (
     <>
@@ -15,7 +24,7 @@ const Game = ({ games, handleNav }) => {
           <div className="flex justify-between p-4 ">
             <div
               onClick={handlePrev}
-              className="border-4 self-center hover:cursor-pointer p-2 w-10 h-10 border-lime-800/80 rounded-3xl"
+              className="border-4 self-center hover:cursor-pointer p-2 w-10 h-10 border-lime-800/80 rounded-3xl shadow-md"
             >
               <svg
                 width="15"
@@ -34,12 +43,17 @@ const Game = ({ games, handleNav }) => {
                 ></path>
               </svg>
             </div>
-            <div className="text-center font-bold h-14 w-64 uppercase tracking-wide pt-4">
-              {games.game}
+            <div className="flex-col">
+              <div className="text-center text-xs font-thin">
+                {results} {odm}
+              </div>
+              <div className="text-center font-bold h-14 w-64 uppercase tracking-wide pt-4">
+                {games.game}
+              </div>
             </div>
             <div
               onClick={handleNext}
-              className="hover:cursor-pointer border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl"
+              className="hover:cursor-pointer border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
               <svg
                 width="15"
@@ -59,7 +73,7 @@ const Game = ({ games, handleNav }) => {
               </svg>
             </div>
           </div>
-          <div className="grid text-sm text-left space-y-2 w-80 h-52 m-auto p-2 border-2 rounded-xl font-light border-lime-800">
+          <div className="grid text-sm text-left space-y-2 w-80 h-52 m-auto p-2 border-2 rounded-xl font-light border-lime-800 shadow-md">
             <div>
               <span className="font-semibold">Etap:</span>{" "}
               {games.stage?.join(", ")}
@@ -68,32 +82,38 @@ const Game = ({ games, handleNav }) => {
               <span className="font-semibold">Wiek:</span>{" "}
               {games.age.join(", ")}
             </div>
-            <div>
-              <span className="font-semibold">Dziedzina:</span>{" "}
-              {games.field?.join(", ")}
-            </div>
+            {games.field ? (
+              <div>
+                <span className="font-semibold">Dziedzina:</span>{" "}
+                {games.field?.join(", ")}
+              </div>
+            ) : (
+              <></>
+            )}
             <div>
               <span className="font-semibold">Rekwizyty:</span>{" "}
               {games.props?.join(", ")}
             </div>
-            <div>
-              <span className="font-semibold">C. społeczne:</span>{" "}
-              {games.social?.join(", ")}
-            </div>
-            <div>
-              <span className="font-semibold">C. techniczne:</span>{" "}
-              {games.technical?.join(", ")}
-            </div>
+            {games.social ? (
+              <div>
+                <span className="font-semibold">C. społeczne:</span>{" "}
+                {games.social?.join(", ")}
+              </div>
+            ) : (
+              <></>
+            )}
+            {games.technical ? (
+              <div>
+                <span className="font-semibold">C. techniczne:</span>{" "}
+                {games.technical?.join(", ")}
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <div className="italic text-center p-2">{games.purpose}</div>
           <div className="text-left tracking-wide font-serif line-clamp-3 m-4">
             {games.descr}
           </div>
-          {games.needs ? (
-            <div className="mt-2 text-center">Potrzeby: {games.needs}</div>
-          ) : (
-            <div></div>
-          )}
         </div>
       ) : (
         <div></div>

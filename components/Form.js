@@ -21,6 +21,7 @@ const Form = () => {
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
   const rekwizytyRange = [
     "dowolne",
+    "brak",
     "flowersticks",
     "piłki",
     "maczugi",
@@ -128,6 +129,7 @@ const Form = () => {
             survival: survival,
           });
           setResult(response.data);
+          setShowGame(result[0]);
         } catch (err) {
           console.error(err);
         } finally {
@@ -145,7 +147,7 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    setShowGame(false);
+    console.log(result);
 
     try {
       //Przypadek dropdownu w wieloma opcjami do wyboru
@@ -322,7 +324,11 @@ const Form = () => {
             <div>
               <div ref={gameRef}>
                 {showGame ? (
-                  <Game games={showGame} handleNav={handleNav} />
+                  <Game
+                    games={showGame}
+                    handleNav={handleNav}
+                    results={result.length}
+                  />
                 ) : (
                   <div></div>
                 )}
