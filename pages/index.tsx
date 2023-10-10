@@ -10,7 +10,7 @@ const Games = () => {
             <span className="font-semibold">Circo</span>
             Sophia
           </div>
-          <p className="mt-2 tracking-widest">
+          <p className="mt-2 tracking-wide sm:tracking-widest">
             Biblioteka cyrkowych gier i zabaw
           </p>
         </div>
