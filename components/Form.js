@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@tremor/react";
 
 //MultiSelect
-import { MultiSelect, MultiSelectItem } from "@tremor/react";
+//import { MultiSelect, MultiSelectItem } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
 import * as Collapsible from "@radix-ui/react-collapsible";
@@ -65,7 +65,6 @@ const Form = () => {
 
   const [query, setQuery] = useState({
     age: "",
-    time: "",
     amount: "",
     props: "",
     field: "",
@@ -77,11 +76,7 @@ const Form = () => {
     survival: false,
   });
 
-  const [checkboxes, setCheckboxes] = useState([]);
   const [ageLimit, setAgeLimit] = useState(ageRange[0]);
-  const [timeLimit, setTimeLimit] = useState("dowolny");
-  const [purpose, setPurpose] = useState([]);
-  const [requir, setRequir] = useState(false);
   const [result, setResult] = useState([]);
   const [submitted, setSubmitted] = useState(null);
   const [amount, setAmount] = useState(amountRange[0]);
@@ -117,7 +112,6 @@ const Form = () => {
           setIsLoading(true);
           const response = await axios.post("/api/search", {
             age: ageLimit,
-            time: timeLimit,
             amount: amount,
             stage: stage,
             field: field,
@@ -151,15 +145,10 @@ const Form = () => {
     console.log(result);
 
     try {
-      //Przypadek dropdownu w wieloma opcjami do wyboru
-      const purpose = checkboxes;
-      setPurpose(purpose);
-
       //Budowanie obiektu zapytania (query)
       setQuery({
         ...query,
         age: ageLimit,
-        time: timeLimit,
         amount: amount,
         stage: stage,
         field: field,
@@ -205,11 +194,6 @@ const Form = () => {
     const show_game = result.filter((game) => game.game === game_name);
     setShowGame(...show_game);
     gameRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const setCheckboxeshandler = (val) => {
-    console.log("changing to: ", val);
-    setCheckboxes(val);
   };
 
   return (

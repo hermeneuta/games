@@ -2,14 +2,24 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
+  ChevronUpIcon,
 } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 const Game = ({ games, handleNav, results }) => {
+  const [showText, setShowText] = useState(false);
+
+  const toggleClamp = () => {
+    setShowText(!showText);
+  };
+
   const handlePrev = () => {
     handleNav("prev");
+    setShowText(false);
   };
   const handleNext = () => {
     handleNav("next");
+    setShowText(false);
   };
   let odm;
 
@@ -24,7 +34,11 @@ const Game = ({ games, handleNav, results }) => {
   return (
     <>
       {games !== "" ? (
-        <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md md:h-128 border border-lime-800 h-full">
+        <div
+          className={`font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
+            showText ? "h-[870px] sm:h-[750px]" : "h-128"
+          }`}
+        >
           <div className="flex-col m-auto">
             <div className="text-center text-xs font-thin">
               {results} {odm}
@@ -79,17 +93,28 @@ const Game = ({ games, handleNav, results }) => {
               <ChevronLeftIcon className="text-white" />
             </div>
             <div
+              onClick={toggleClamp}
+              className="hover:cursor-pointer bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-800/80 hover:bg-[#365314] rounded-3xl m-auto"
+            >
+              {showText ? (
+                <ChevronUpIcon className="text-white" />
+              ) : (
+                <ChevronDownIcon className="text-white" />
+              )}
+            </div>
+            <div
               onClick={handleNext}
               className="hover:cursor-pointer bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
               <ChevronRightIcon className="text-white" />
             </div>
           </div>
-          <div className="text-left tracking-wide font-serif line-clamp-3 m-4">
+          <div
+            className={`text-justify tracking-wide font-serif ${
+              showText ? "" : "line-clamp-3"
+            } m-4 mt-6`}
+          >
             {games.descr}
-          </div>
-          <div className="hover:cursor-pointer bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-500/80 hover:bg-[#365314] rounded-3xl m-auto">
-            <ChevronDownIcon className="text-white" />
           </div>
         </div>
       ) : (
