@@ -3,7 +3,7 @@ const Switcher = ({ id, categoryName, changed, handleChange }) => {
   return (
     <div className="flex mb-1 mx-auto justify-between items-center">
       <label
-        className="justify-start font-bold text-sm leading-none pr-[15px]"
+        className="tracking-wide justify-start font-bold text-sm leading-none pr-[10px]"
         htmlFor={id}
       >
         {categoryName}

@@ -33,7 +33,7 @@ const Game = ({ games, handleNav, results }) => {
               {games.game}
             </div>
           </div>
-          <div className="grid text-sm text-left space-y-2 w-80 h-52 m-auto p-2 border-2 rounded-xl font-light border-lime-800 shadow-md">
+          <div className="grid text-sm bg-gradient-to-l from:bg-lime-600 to:bg-lime-900 text-left space-y-2 w-72 sm:w-80 h-56 m-auto p-2 border-2 rounded-xl font-light border-lime-800 shadow-md">
             <div>
               <span className="font-semibold">Etap:</span>{" "}
               {games.stage?.join(", ")}
