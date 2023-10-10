@@ -9,7 +9,7 @@ import { MultiSelect, MultiSelectItem } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { RowSpacingIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
@@ -21,6 +21,7 @@ const Form = () => {
   const amountRange = ["optymalna", "mała (do 5 osób)", "liczna (pow. 15/20)"];
   const rekwizytyRange = [
     "dowolne",
+    "brak",
     "flowersticks",
     "piłki",
     "maczugi",
@@ -128,6 +129,8 @@ const Form = () => {
             survival: survival,
           });
           setResult(response.data);
+          console.log("setShowGame", result[0]);
+          setShowGame(response.data[0]);
         } catch (err) {
           console.error(err);
         } finally {
@@ -145,7 +148,7 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    setShowGame(false);
+    console.log(result);
 
     try {
       //Przypadek dropdownu w wieloma opcjami do wyboru
@@ -174,12 +177,33 @@ const Form = () => {
     }
   };
 
+  const handleNav = (info) => {
+    //Znalezienie indexu obecnie wyświetlanej gry
+    let idx = result.findIndex((el) => el._id === showGame._id);
+    console.log(idx, result);
+
+    //Modyfikacja indeksu w zależności od decyzji użytkownika
+    if (info === "next") {
+      const mod = idx === result.length - 1 ? 0 : idx + 1;
+      console.log(idx, mod);
+      const next_game = result[mod];
+      console.log(next_game);
+      setShowGame(next_game);
+    } else {
+      console.log("prev");
+      const mod = idx === 0 ? result.length - 1 : idx - 1;
+      const prev_game = result[mod];
+      console.log(prev_game);
+      setShowGame(prev_game);
+    }
+  };
+
   //Obsługa kliknięcia w nazwę gry
   const handleClick = (e) => {
     e.preventDefault();
     const game_name = e.target.textContent;
     const show_game = result.filter((game) => game.game === game_name);
-    setShowGame(show_game);
+    setShowGame(...show_game);
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -208,24 +232,16 @@ const Form = () => {
               />
             </div>
             <Collapsible.Root open={open} onOpenChange={setOpen}>
-              <div
-                className="mr-24 ml-24 mt-4 mb-4 sm:mr-40 sm:ml-40"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span className="text-xs font-extralight">więcej...</span>
+              <div className="mr-24 ml-24 mt-4 mb-4 sm:mr-40 sm:ml-40">
                 <Collapsible.Trigger asChild>
                   <button className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
-                    {open ? <Cross2Icon /> : <RowSpacingIcon />}
+                    {open ? <Cross2Icon /> : <ChevronDownIcon />}
                   </button>
                 </Collapsible.Trigger>
               </div>
 
               <Collapsible.Content className="grid sm:grid-cols-2">
-                <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
+                <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
                 <Dropdown
                   categoryName="Etap zajęć"
                   value={stage}
@@ -261,8 +277,8 @@ const Form = () => {
                 <div className="mt-5"></div>
               </Collapsible.Content>
             </Collapsible.Root>
-            <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
-            <div className="mr-14 ml-14 mt-5 mb-5 sm:mr-28 sm:ml-28">
+            <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
+            <div className="mr-14 ml-14 mt-2 mb-5 sm:mr-28 sm:ml-28">
               <Switcher
                 id="fast_game"
                 categoryName="Szybka gra"
@@ -300,7 +316,15 @@ const Form = () => {
           {result.length !== 0 ? (
             <div>
               <div ref={gameRef}>
-                {showGame ? <Game games={showGame} /> : <div></div>}
+                {showGame ? (
+                  <Game
+                    games={showGame}
+                    handleNav={handleNav}
+                    results={result.length}
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
               <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
