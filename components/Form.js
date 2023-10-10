@@ -9,7 +9,7 @@ import { MultiSelect, MultiSelectItem } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { RowSpacingIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
@@ -129,7 +129,8 @@ const Form = () => {
             survival: survival,
           });
           setResult(response.data);
-          setShowGame(result[0]);
+          console.log("setShowGame", result[0]);
+          setShowGame(response.data[0]);
         } catch (err) {
           console.error(err);
         } finally {
@@ -231,24 +232,16 @@ const Form = () => {
               />
             </div>
             <Collapsible.Root open={open} onOpenChange={setOpen}>
-              <div
-                className="mr-24 ml-24 mt-4 mb-4 sm:mr-40 sm:ml-40"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span className="text-xs font-extralight">więcej...</span>
+              <div className="mr-24 ml-24 mt-4 mb-4 sm:mr-40 sm:ml-40">
                 <Collapsible.Trigger asChild>
                   <button className="rounded-full h-[25px] w-[25px] inline-flex items-center justify-center text-violet11 shadow-[0_2px_10px] shadow-blackA7 outline-none data-[state=closed]:bg-white data-[state=open]:bg-violet3 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
-                    {open ? <Cross2Icon /> : <RowSpacingIcon />}
+                    {open ? <Cross2Icon /> : <ChevronDownIcon />}
                   </button>
                 </Collapsible.Trigger>
               </div>
 
               <Collapsible.Content className="grid sm:grid-cols-2">
-                <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
+                <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
                 <Dropdown
                   categoryName="Etap zajęć"
                   value={stage}
@@ -284,8 +277,8 @@ const Form = () => {
                 <div className="mt-5"></div>
               </Collapsible.Content>
             </Collapsible.Root>
-            <Separator.Root className="sm:col-span-2 bg-violet6 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
-            <div className="mr-14 ml-14 mt-5 mb-5 sm:mr-28 sm:ml-28">
+            <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
+            <div className="mr-14 ml-14 mt-2 mb-5 sm:mr-28 sm:ml-28">
               <Switcher
                 id="fast_game"
                 categoryName="Szybka gra"
