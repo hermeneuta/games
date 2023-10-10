@@ -74,22 +74,22 @@ const Game = ({ games, handleNav, results }) => {
           <div className="flex justify-between max-w-xs pt-4 m-auto">
             <div
               onClick={handlePrev}
-              className="hover:cursor-pointer border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
+              className="hover:cursor-pointer bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
-              <ChevronLeftIcon />
+              <ChevronLeftIcon className="text-white" />
             </div>
             <div
               onClick={handleNext}
-              className="hover:cursor-pointer border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
+              className="hover:cursor-pointer bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
-              <ChevronRightIcon />
+              <ChevronRightIcon className="text-white" />
             </div>
           </div>
           <div className="text-left tracking-wide font-serif line-clamp-3 m-4">
             {games.descr}
           </div>
-          <div className="hover:cursor-pointer border-4 p-2 w-10 h-10 shadow-md self-center border-lime-800/80 rounded-3xl m-auto">
-            <ChevronDownIcon />
+          <div className="hover:cursor-pointer bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-500/80 hover:bg-[#365314] rounded-3xl m-auto">
+            <ChevronDownIcon className="text-white" />
           </div>
         </div>
       ) : (
