@@ -78,6 +78,7 @@ const Form = () => {
 
   const [ageLimit, setAgeLimit] = useState(ageRange[0]);
   const [result, setResult] = useState([]);
+  const [getResult, setGetResult] = useState(false);
   const [submitted, setSubmitted] = useState(null);
   const [amount, setAmount] = useState(amountRange[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -123,8 +124,8 @@ const Form = () => {
             survival: survival,
           });
           setResult(response.data);
-          console.log("setShowGame", result[0]);
           setShowGame(response.data[0]);
+          setGetResult(true);
         } catch (err) {
           console.error(err);
         } finally {
@@ -142,7 +143,6 @@ const Form = () => {
     //powinien zwracać obiekt postaci query
 
     e.preventDefault();
-    console.log(result);
 
     try {
       //Budowanie obiektu zapytania (query)
@@ -174,15 +174,11 @@ const Form = () => {
     //Modyfikacja indeksu w zależności od decyzji użytkownika
     if (info === "next") {
       const mod = idx === result.length - 1 ? 0 : idx + 1;
-      console.log(idx, mod);
       const next_game = result[mod];
-      console.log(next_game);
       setShowGame(next_game);
     } else {
-      console.log("prev");
       const mod = idx === 0 ? result.length - 1 : idx - 1;
       const prev_game = result[mod];
-      console.log(prev_game);
       setShowGame(prev_game);
     }
   };
@@ -296,19 +292,16 @@ const Form = () => {
             </div>
           </div>
         </form>
+
         <div ref={resultRef}>
-          {result.length !== 0 ? (
+          {result.length !== 0 && getResult ? (
             <div>
               <div ref={gameRef}>
-                {showGame ? (
-                  <Game
-                    games={showGame}
-                    handleNav={handleNav}
-                    results={result.length}
-                  />
-                ) : (
-                  <div></div>
-                )}
+                <Game
+                  games={showGame}
+                  handleNav={handleNav}
+                  results={result.length}
+                />
               </div>
               <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
                 <ul className="grid grid-cols-2 lg:grid-cols-3">
@@ -316,12 +309,21 @@ const Form = () => {
                     <li
                       key={game._id}
                       onClick={handleClick}
-                      className="bg-lime-750 hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
+                      className="bg-lime-750 hover:tracking-wide hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
                     >
                       <div>{game.game}</div>
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          ) : result.length === 0 && getResult ? (
+            <div className="max-w-sm m-auto space-y-2 sm:max-w-md py-10">
+              <div className="text-lime-600 font-semibold tracking-wide">
+                Brak wyników
+              </div>
+              <div className="text-sm text-zinc-900 tracking-wide">
+                Spróbuj ponownie zmieniając kryteria wyszukiwania
               </div>
             </div>
           ) : (

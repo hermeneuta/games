@@ -88,13 +88,13 @@ const Game = ({ games, handleNav, results }) => {
           <div className="flex justify-between max-w-xs pt-4 m-auto">
             <div
               onClick={handlePrev}
-              className="hover:cursor-pointer bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
+              className="hover:cursor-pointer hover:scale-105 bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
               <ChevronLeftIcon className="text-white" />
             </div>
             <div
               onClick={toggleClamp}
-              className="hover:cursor-pointer bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-800/80 hover:bg-[#365314] rounded-3xl m-auto"
+              className="hover:cursor-pointer hover:scale-105 bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-800/80 hover:bg-[#365314] rounded-3xl m-auto"
             >
               {showText ? (
                 <ChevronUpIcon className="text-white" />
@@ -104,7 +104,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
             <div
               onClick={handleNext}
-              className="hover:cursor-pointer bg-[#1a2e05] hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
+              className="hover:cursor-pointer bg-[#1a2e05] hover:scale-105 hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
               <ChevronRightIcon className="text-white" />
             </div>
