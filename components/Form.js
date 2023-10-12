@@ -78,6 +78,7 @@ const Form = () => {
 
   const [ageLimit, setAgeLimit] = useState(ageRange[0]);
   const [result, setResult] = useState([]);
+  const [getResult, setGetResult] = useState(false);
   const [submitted, setSubmitted] = useState(null);
   const [amount, setAmount] = useState(amountRange[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,6 +125,7 @@ const Form = () => {
           });
           setResult(response.data);
           setShowGame(response.data[0]);
+          setGetResult(true);
         } catch (err) {
           console.error(err);
         } finally {
@@ -290,8 +292,9 @@ const Form = () => {
             </div>
           </div>
         </form>
+
         <div ref={resultRef}>
-          {result.length !== 0 ? (
+          {result.length !== 0 && getResult ? (
             <div>
               <div ref={gameRef}>
                 <Game
@@ -306,7 +309,7 @@ const Form = () => {
                     <li
                       key={game._id}
                       onClick={handleClick}
-                      className="bg-lime-750 hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
+                      className="bg-lime-750 hover:tracking-wide hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
                     >
                       <div>{game.game}</div>
                     </li>
@@ -314,7 +317,7 @@ const Form = () => {
                 </ul>
               </div>
             </div>
-          ) : result.length === 0 && submitted ? (
+          ) : result.length === 0 && getResult ? (
             <div className="max-w-sm m-auto space-y-2 sm:max-w-md py-10">
               <div className="text-lime-600 font-semibold tracking-wide">
                 Brak wyników
