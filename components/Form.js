@@ -316,8 +316,10 @@ const Form = () => {
             </div>
           ) : result.length === 0 && submitted ? (
             <div className="max-w-sm m-auto space-y-2 sm:max-w-md py-10">
-              <div className="text-lime-600">Brak wyników</div>
-              <div className="text-sm text-zinc-900">
+              <div className="text-lime-600 font-semibold tracking-wide">
+                Brak wyników
+              </div>
+              <div className="text-sm text-zinc-900 tracking-wide">
                 Spróbuj ponownie zmieniając kryteria wyszukiwania
               </div>
             </div>
