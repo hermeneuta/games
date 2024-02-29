@@ -109,13 +109,16 @@ const Game = ({ games, handleNav, results }) => {
               <ChevronRightIcon className="text-white" />
             </div>
           </div>
-          <div
-            className={`text-justify tracking-wide font-serif ${
-              showText ? "" : "line-clamp-3"
-            } m-4 mt-6`}
-          >
-            {games.descr}
+          <div className="text-center uppercase tracking-wide pt-8 pb-4">
+            {games.descr.opis}
           </div>
+          {showText ? (
+            <div className={"text-justify tracking-wide font-serif m-4 mt-6"}>
+              {games.descr.zasady}
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       ) : (
         <div></div>
