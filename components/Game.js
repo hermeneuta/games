@@ -36,7 +36,7 @@ const Game = ({ games, handleNav, results }) => {
       {games !== "" ? (
         <div
           className={`font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
-            showText ? "h-[870px] sm:h-[750px]" : "h-128"
+            showText ? "" : "h-128"
           }`}
         >
           <div className="flex-col m-auto">
@@ -70,7 +70,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
             {games.social ? (
               <div>
-                <span className="font-semibold">C. społeczne:</span>{" "}
+                <span className="font-semibold">Cele społeczne:</span>{" "}
                 {games.social?.join(", ")}
               </div>
             ) : (
@@ -78,7 +78,7 @@ const Game = ({ games, handleNav, results }) => {
             )}
             {games.technical ? (
               <div>
-                <span className="font-semibold">C. techniczne:</span>{" "}
+                <span className="font-semibold">Cele techniczne:</span>{" "}
                 {games.technical?.join(", ")}
               </div>
             ) : (
@@ -109,13 +109,16 @@ const Game = ({ games, handleNav, results }) => {
               <ChevronRightIcon className="text-white" />
             </div>
           </div>
-          <div
-            className={`text-justify tracking-wide font-serif ${
-              showText ? "" : "line-clamp-3"
-            } m-4 mt-6`}
-          >
-            {games.descr}
+          <div className="text-center uppercase tracking-wide pt-8 pb-4">
+            {games.descr.opis}
           </div>
+          {showText ? (
+            <div className={"text-justify tracking-wide font-serif m-4 mt-6"}>
+              {games.descr.zasady}
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       ) : (
         <div></div>
