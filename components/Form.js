@@ -18,7 +18,7 @@ const Form = () => {
   const gameRef = useRef(null);
 
   const ageRange = ["dowolny", "5-7", "8-11", "12-16", "16+"];
-  const amountRange = ["optymalna", "5-15", "ponad 15"];
+  const amountRange = ["dowolna", "5-15", "ponad 15"];
   const rekwizytyRange = [
     "dowolne",
     "brak",
