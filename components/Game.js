@@ -113,8 +113,33 @@ const Game = ({ games, handleNav, results }) => {
             {games.descr.opis}
           </div>
           {showText ? (
-            <div className={"text-justify tracking-wide font-serif m-4 mt-6"}>
-              {games.descr.zasady}
+            <div className="text-justify tracking-wide font-serif m-4 mt-6 space-y-4">
+              <div>
+                <div className="font-bold">Opis miejsca:</div>
+                <div>{games.descr.miejsce}</div>
+              </div>
+              <div>
+                <div className="font-bold">Zasady:</div>
+                <div>{games.descr.zasady}</div>
+              </div>
+              <div>
+                <div className="font-bold">Cel gry:</div>
+                <div>{games.descr.cel}</div>
+              </div>
+              <div>
+                <div className="font-bold">Na co zwrócić uwagę:</div>
+                <div>{games.descr.uwagi}</div>
+              </div>
+              <div>
+                {games.descr.warianty ? (
+                  <>
+                    <div className="font-bold">Warianty:</div>
+                    <div>{games.descr.warianty}</div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           ) : (
             <div></div>
