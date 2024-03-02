@@ -109,7 +109,7 @@ const Game = ({ games, handleNav, results }) => {
               <ChevronRightIcon className="text-white" />
             </div>
           </div>
-          <div className="text-center uppercase tracking-wide pt-8 pb-4">
+          <div className="text-center uppercase tracking-wide m-4">
             {games.descr.opis}
           </div>
           {showText ? (
