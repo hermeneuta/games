@@ -5,6 +5,7 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import { useState } from "react";
+import FormattedText from "./FormattedText";
 
 const Game = ({ games, handleNav, results }) => {
   const [showText, setShowText] = useState(false);
@@ -116,25 +117,35 @@ const Game = ({ games, handleNav, results }) => {
             <div className="text-justify tracking-wide font-serif m-4 mt-6 space-y-4">
               <div>
                 <div className="font-bold">Opis miejsca:</div>
-                <div>{games.descr.miejsce}</div>
+                <div>
+                  <FormattedText text={games.descr.miejsce} />
+                </div>
               </div>
               <div>
                 <div className="font-bold">Zasady:</div>
-                <div>{games.descr.zasady}</div>
+                <div>
+                  <FormattedText text={games.descr.zasady} />
+                </div>
               </div>
               <div>
                 <div className="font-bold">Cel gry:</div>
-                <div>{games.descr.cel}</div>
+                <div>
+                  <FormattedText text={games.descr.cel} />
+                </div>
               </div>
               <div>
                 <div className="font-bold">Na co zwrócić uwagę:</div>
-                <div>{games.descr.uwagi}</div>
+                <div>
+                  <FormattedText text={games.descr.uwagi} />
+                </div>
               </div>
               <div>
                 {games.descr.warianty ? (
                   <>
                     <div className="font-bold">Warianty:</div>
-                    <div>{games.descr.warianty}</div>
+                    <div>
+                      <FormattedText text={games.descr.warianty} />
+                    </div>
                   </>
                 ) : (
                   <></>
