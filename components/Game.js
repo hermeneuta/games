@@ -57,6 +57,10 @@ const Game = ({ games, handleNav, results }) => {
               <span className="font-semibold">Wiek:</span>{" "}
               {games.age.join(", ")}
             </div>
+            <div>
+              <span className="font-semibold">Liczba uczestników:</span>{" "}
+              {games.amount?.join(", ")}
+            </div>
             {games.field ? (
               <div>
                 <span className="font-semibold">Dziedzina:</span>{" "}

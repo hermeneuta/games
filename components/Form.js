@@ -107,7 +107,6 @@ const Form = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(query);
       if (submitted) {
         try {
           setIsLoading(true);
@@ -169,7 +168,6 @@ const Form = () => {
   const handleNav = (info) => {
     //Znalezienie indexu obecnie wyświetlanej gry
     let idx = result.findIndex((el) => el._id === showGame._id);
-    console.log(idx, result);
 
     //Modyfikacja indeksu w zależności od decyzji użytkownika
     if (info === "next") {
