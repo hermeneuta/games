@@ -98,16 +98,6 @@ const Game = ({ games, handleNav, results }) => {
               <ChevronLeftIcon className="text-white" />
             </div>
             <div
-              onClick={toggleClamp}
-              className="hover:cursor-pointer hover:scale-105 bg-[#1a2e05] border-4 p-2 w-10 h-10 shadow-md self-center border-lime-800/80 hover:bg-[#365314] rounded-3xl m-auto"
-            >
-              {showText ? (
-                <ChevronUpIcon className="text-white" />
-              ) : (
-                <ChevronDownIcon className="text-white" />
-              )}
-            </div>
-            <div
               onClick={handleNext}
               className="hover:cursor-pointer bg-[#1a2e05] hover:scale-105 hover:bg-[#365314] border-4 p-2 w-10 h-10 self-center border-lime-800/80 rounded-3xl shadow-md"
             >
@@ -115,7 +105,14 @@ const Game = ({ games, handleNav, results }) => {
             </div>
           </div>
           <div className="text-center uppercase tracking-wide m-4">
-            {games.descr.opis}
+            <div>{games.descr.opis}</div>
+            <button onClick={toggleClamp} className="underline mt-4">
+              {showText ? (
+                <div>&#62;&#62; skrócony opis &#60;&#60;</div>
+              ) : (
+                <div>&#60;&#60; pełny opis &#62;&#62;</div>
+              )}
+            </button>
           </div>
           {showText ? (
             <div className="text-justify tracking-wide font-serif m-4 mt-6 space-y-4">
