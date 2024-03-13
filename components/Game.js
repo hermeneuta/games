@@ -106,11 +106,17 @@ const Game = ({ games, handleNav, results }) => {
           </div>
           <div className="text-center uppercase tracking-wide m-4">
             <div>{games.descr.opis}</div>
-            <button onClick={toggleClamp} className="underline mt-4">
+            <button onClick={toggleClamp} className="mt-4">
               {showText ? (
-                <div>&#62;&#62; skrócony opis &#60;&#60;</div>
+                <div>
+                  &#62;&#62; <span className="underline">skrócony opis</span>{" "}
+                  &#60;&#60;
+                </div>
               ) : (
-                <div>&#60;&#60; pełny opis &#62;&#62;</div>
+                <div>
+                  &#60;&#60; <span className="underline">pełny opis</span>{" "}
+                  &#62;&#62;
+                </div>
               )}
             </button>
           </div>
