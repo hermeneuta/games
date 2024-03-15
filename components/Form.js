@@ -64,19 +64,6 @@ const Form = () => {
     "rytmizacja",
   ];
 
-  const [query, setQuery] = useState({
-    age: "",
-    amount: "",
-    props: "",
-    field: "",
-    stage: "",
-    social: "",
-    technical: "",
-    fastGame: false,
-    smallSpace: false,
-    survival: false,
-  });
-
   const [ageLimit, setAgeLimit] = useState(ageRange[0]);
   const [result, setResult] = useState([]);
   const [getResult, setGetResult] = useState(false);
@@ -108,61 +95,38 @@ const Form = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (submitted) {
-        try {
-          setIsLoading(true);
-          const response = await axios.post("/api/search", {
-            age: ageLimit,
-            amount: amount,
-            stage: stage,
-            field: field,
-            props: rekwizyty,
-            social: socialAims,
-            technical: technicalAims,
-            fastGame: fastGame,
-            smallSpace: smallSpace,
-            survival: survival,
-          });
-          setResult(response.data);
-          setShowGame(response.data[0]);
-          setGetResult(true);
-        } catch (err) {
-          console.error(err);
-        } finally {
-          setIsLoading(false);
-
-          resultRef.current.scrollIntoView({ behavior: "smooth" });
-        }
+      if (!submitted) return;
+      setIsLoading(true);
+      try {
+        const response = await axios.post("/api/search", submitted);
+        setResult(response.data);
+        setShowGame(response.data[0]);
+        setGetResult(true);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+        resultRef.current.scrollIntoView({ behavior: "smooth" });
       }
     };
     fetchData();
   }, [submitted]);
 
   const handleSubmit = async (e) => {
-    //powinien zwracać obiekt postaci query
-
     e.preventDefault();
 
-    try {
-      //Budowanie obiektu zapytania (query)
-      setQuery({
-        ...query,
-        age: ageLimit,
-        amount: amount,
-        stage: stage,
-        field: field,
-        props: rekwizyty,
-        social: socialAims,
-        technical: technicalAims,
-        fastGame: fastGame,
-        smallSpace: smallSpace,
-        survival: survival,
-      });
-
-      setSubmitted(query);
-    } catch (error) {
-      alert("An error occurred. Please try again.");
-    }
+    setSubmitted({
+      age: ageLimit,
+      amount: amount,
+      stage: stage,
+      field: field,
+      props: rekwizyty,
+      social: socialAims,
+      technical: technicalAims,
+      fastGame: fastGame,
+      smallSpace: smallSpace,
+      survival: survival,
+    });
   };
 
   const handleNav = (info) => {
