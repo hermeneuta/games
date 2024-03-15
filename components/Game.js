@@ -1,9 +1,4 @@
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  ChevronUpIcon,
-} from "@radix-ui/react-icons";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import FormattedText from "./FormattedText";
 
@@ -36,7 +31,7 @@ const Game = ({ games, handleNav, results }) => {
     <>
       {games !== "" ? (
         <div
-          className={`font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
+          className={`font-serif shadow-md text-zinc-950 bg-gradient-to-tl from-lime-500 bg-lime-600 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
             showText ? "" : "h-128"
           }`}
         >
