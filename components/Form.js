@@ -8,8 +8,9 @@ import { Button } from "@tremor/react";
 //import { MultiSelect, MultiSelectItem } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
+import NoResults from "./NoResults";
+import ShowingGamesNames from "./ShowingGamesNames";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
@@ -135,7 +136,6 @@ const Form = () => {
       }
     };
     fetchData();
-    // setSubmitted(null);
   }, [submitted]);
 
   const handleSubmit = async (e) => {
@@ -291,6 +291,8 @@ const Form = () => {
           </div>
         </form>
 
+        {/*Prezentacja kart z nazwami gier*/}
+
         <div ref={resultRef}>
           {result.length !== 0 && getResult ? (
             <div>
@@ -301,29 +303,10 @@ const Form = () => {
                   results={result.length}
                 />
               </div>
-              <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
-                <ul className="grid grid-cols-2 lg:grid-cols-3">
-                  {result.map((game) => (
-                    <li
-                      key={game._id}
-                      onClick={handleClick}
-                      className="bg-lime-750 hover:tracking-wide hover:bg-lime-600 border border-lime-800 rounded-md p-2 m-1 font-bold text-xs text-zinc-950 font-serif shadow-md focus:shadow-outline hover:cursor-pointer"
-                    >
-                      <div>{game.game}</div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ShowingGamesNames result={result} handleClick={handleClick} />
             </div>
           ) : result.length === 0 && getResult ? (
-            <div className="max-w-sm m-auto space-y-2 sm:max-w-md py-10">
-              <div className="text-lime-600 font-semibold tracking-wide">
-                Brak wyników
-              </div>
-              <div className="text-sm text-zinc-900 tracking-wide">
-                Spróbuj ponownie zmieniając kryteria wyszukiwania
-              </div>
-            </div>
+            <NoResults />
           ) : (
             <div></div>
           )}
