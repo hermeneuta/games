@@ -10,7 +10,6 @@ import { Button } from "@tremor/react";
 import Switcher from "./Switcher";
 import Dropdown from "./Dropdown";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import * as Separator from "@radix-ui/react-separator";
 
 const Form = () => {
@@ -106,6 +105,7 @@ const Form = () => {
     setSurvival(!survival);
   };
 
+  //postronne efekty podczas wysłania formularzu. Zapytanie wędruje do search endpoint
   useEffect(() => {
     const fetchData = async () => {
       if (submitted) {
