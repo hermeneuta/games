@@ -9,7 +9,6 @@ export default async function handler(req, res) {
 
     const { searchTerm } = req.query;
 
-    console.log(searchTerm);
     const searchResult = await collection
       .aggregate([
         {
@@ -26,7 +25,6 @@ export default async function handler(req, res) {
       ])
       .toArray();
 
-    console.log(searchResult);
     res.json(searchResult);
   } catch (error) {
     res.status(500).json({ error: "Unable to perform search" });

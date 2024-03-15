@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Search = () => {
   // Example of calling the API from a component
   const [searchTerm, setSearchTerm] = useState("");
+  const [goSearch, setGoSearch] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/look?searchTerm=${encodeURIComponent(goSearch)}`,
+      );
+      const data = await response.json();
+      console.log(data);
+      // onResultChange(data);
+      // onShowGameChange(data[0]);
+      // onGetResultChange(true);
+    };
+    fetchData();
+  }, [goSearch]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
 
-    try {
-      const response = await fetch(
-        `/api/look?searchTerm=${encodeURIComponent(searchTerm)}`,
-      );
-      const data = await response.json();
-      setSearchResults(data);
-    } catch (error) {
-      console.error("Failed to fetch search results:", error);
-    }
+    setGoSearch(searchTerm);
   };
 
   return (
@@ -29,7 +36,6 @@ const Search = () => {
           placeholder="Search..."
           aria-label="Search"
         />
-
         <button type="submit">Search</button>
       </form>
     </>
