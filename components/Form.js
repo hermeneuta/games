@@ -1,5 +1,6 @@
 import axios from "axios";
 import Game from "./Game";
+import Search from "./Search";
 import { useState, useEffect, useRef } from "react";
 //Select
 import { Button } from "@tremor/react";
@@ -154,11 +155,53 @@ const Form = () => {
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleResultChange = (value) => {
+    setResult(value);
+  };
+
+  const handleShowGameChange = (value) => {
+    setShowGame(value[0]);
+  };
+
+  const handleGetResultChange = (value) => {
+    setGetResult(value);
+  };
+
+  const handleResulRef = () => {
+    resultRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  //postronne efekty podczas wysłania formularza. Zapytanie wędruje do search endpoint
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!submitted) return;
+
+      setIsLoading(true);
+      const response = await axios.post("/api/search", submitted);
+      setResult(response.data);
+      setShowGame(response.data[0]);
+      setGetResult(true);
+      setIsLoading(false);
+      resultRef.current.scrollIntoView({ behavior: "smooth" });
+    };
+
+    fetchData();
+  }, [submitted]);
+
+  // console.log(result);
   return (
     <>
-      <div className="text-center">
-        <form onSubmit={handleSubmit}>
-          <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-800 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">
+      <div>
+        <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 text-center">
+          <div className="mb-4">Wyszukaj grę po nazwie</div>
+          <Search
+            onGetResultChange={handleGetResultChange}
+            onShowGameChange={handleShowGameChange}
+            onResultChange={handleResultChange}
+            onResultRef={handleResulRef}
+          />
+          <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
+          <div className="mb-4">Lub skorzystaj z kategorii</div>
+          <form onSubmit={handleSubmit}>
             <div className="grid mx-auto items-center sm:grid-cols-2">
               <Dropdown
                 categoryName="Wiek"
@@ -252,8 +295,8 @@ const Form = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
 
         {/*Prezentacja kart z nazwami gier*/}
 

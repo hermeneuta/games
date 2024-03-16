@@ -1,9 +1,4 @@
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  ChevronUpIcon,
-} from "@radix-ui/react-icons";
+import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import FormattedText from "./FormattedText";
 
@@ -36,7 +31,7 @@ const Game = ({ games, handleNav, results }) => {
     <>
       {games !== "" ? (
         <div
-          className={`font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
+          className={`font-serif shadow-md text-zinc-950 bg-gradient-to-tl from-lime-500 bg-lime-600 text-sm text-left flex-row items-center justify-center gap-10 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ${
             showText ? "" : "h-128"
           }`}
         >
@@ -55,7 +50,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
             <div>
               <span className="font-semibold">Wiek:</span>{" "}
-              {games.age.join(", ")}
+              {games.age?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Liczba uczestników:</span>{" "}
@@ -105,7 +100,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
           </div>
           <div className="text-center uppercase tracking-wide m-4">
-            <div>{games.descr.opis}</div>
+            <div>{games.descr?.opis}</div>
             <button onClick={toggleClamp} className="mt-4">
               {showText ? (
                 <div>
