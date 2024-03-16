@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-const Search = ({ onResultChange, onShowGameChange, onGetResultChange }) => {
+const Search = ({
+  onResultChange,
+  onShowGameChange,
+  onGetResultChange,
+  onResultRef,
+}) => {
   // Example of calling the API from a component
   const [searchTerm, setSearchTerm] = useState("");
   const [goSearch, setGoSearch] = useState("");
@@ -16,6 +21,7 @@ const Search = ({ onResultChange, onShowGameChange, onGetResultChange }) => {
       onResultChange(data);
       onShowGameChange(data);
       onGetResultChange(true);
+      onResultRef();
     };
     fetchData();
   }, [goSearch]);

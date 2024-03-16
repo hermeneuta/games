@@ -146,6 +146,9 @@ const Form = () => {
     setGetResult(value);
   };
 
+  const handleResulRef = () => {
+    resultRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   //postronne efekty podczas wysłania formularza. Zapytanie wędruje do search endpoint
   useEffect(() => {
     const fetchData = async () => {
@@ -172,6 +175,7 @@ const Form = () => {
           onGetResultChange={handleGetResultChange}
           onShowGameChange={handleShowGameChange}
           onResultChange={handleResultChange}
+          onResultRef={handleResulRef}
         />
         <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
         <div className="mb-4">Lub skorzystaj z kategorii</div>
