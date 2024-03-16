@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 const Search = ({ onResultChange, onShowGameChange, onGetResultChange }) => {
   // Example of calling the API from a component
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,19 +28,33 @@ const Search = ({ onResultChange, onShowGameChange, onGetResultChange }) => {
   };
 
   return (
-    <>
-      <div>Search</div>
+    <div className="mb-4">
       <form onSubmit={handleSearch}>
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search..."
+          placeholder="berek"
           aria-label="Search"
+          className="
+    border-zinc-50 
+    border-2 
+    p-1 
+    pl-5 // Adjust left padding as needed
+    rounded-md 
+    shadow-sm 
+    focus:ring-2 
+    focus:ring-blue-500 
+    focus:border-transparent 
+    outline-none 
+    text-gray-700
+  "
         />
-        <button type="submit">Search</button>
+        <button className="ml-4 justify-center items-center" type="submit">
+          <MagnifyingGlassIcon className="font-bold w-5 h-5" />
+        </button>
       </form>
-    </>
+    </div>
   );
 };
 
