@@ -166,7 +166,7 @@ const Form = () => {
     fetchData();
   }, [submitted]);
 
-  console.log(result);
+  // console.log(result);
   return (
     <>
       <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 text-center">
