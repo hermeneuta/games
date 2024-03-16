@@ -50,7 +50,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
             <div>
               <span className="font-semibold">Wiek:</span>{" "}
-              {games.age.join(", ")}
+              {games.age?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Liczba uczestników:</span>{" "}
@@ -100,7 +100,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
           </div>
           <div className="text-center uppercase tracking-wide m-4">
-            <div>{games.descr.opis}</div>
+            <div>{games.descr?.opis}</div>
             <button onClick={toggleClamp} className="mt-4">
               {showText ? (
                 <div>

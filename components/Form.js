@@ -134,19 +134,19 @@ const Form = () => {
     gameRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  // const handleResultChange = (value) => {
-  //   setResult(value);
-  // };
-  //
-  // const handleShowGameChange = (value) => {
-  //   setShowGame(value);
-  // };
-  //
-  // const handleGetResultChange = (value) => {
-  //   setGetResult(value);
-  // };
-  //
-  //postronne efekty podczas wysłania formularzu. Zapytanie wędruje do search endpoint
+  const handleResultChange = (value) => {
+    setResult(value);
+  };
+
+  const handleShowGameChange = (value) => {
+    setShowGame(value[0]);
+  };
+
+  const handleGetResultChange = (value) => {
+    setGetResult(value);
+  };
+
+  //postronne efekty podczas wysłania formularza. Zapytanie wędruje do search endpoint
   useEffect(() => {
     const fetchData = async () => {
       if (!submitted) return;
@@ -163,13 +163,14 @@ const Form = () => {
     fetchData();
   }, [submitted]);
 
+  console.log(result);
   return (
     <>
       <div className="text-center">
         <Search
-        // onGetResultChange={handleGetResultChange}
-        // onShowGameChange={handleShowGameChange}
-        // onResultChange={handleResultChange}
+          onGetResultChange={handleGetResultChange}
+          onShowGameChange={handleShowGameChange}
+          onResultChange={handleResultChange}
         />
         <form onSubmit={handleSubmit}>
           <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 ">

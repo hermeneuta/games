@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-const Search = () => {
+const Search = ({ onResultChange, onShowGameChange, onGetResultChange }) => {
   // Example of calling the API from a component
   const [searchTerm, setSearchTerm] = useState("");
   const [goSearch, setGoSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!goSearch) return;
       const response = await fetch(
         `/api/look?searchTerm=${encodeURIComponent(goSearch)}`,
       );
-      const data = await response.json();
-      console.log(data);
-      // onResultChange(data);
-      // onShowGameChange(data[0]);
-      // onGetResultChange(true);
+      const responseJson = await response.json();
+      const data = Array.isArray(responseJson) ? responseJson : [responseJson];
+      onResultChange(data);
+      onShowGameChange(data);
+      onGetResultChange(true);
     };
     fetchData();
   }, [goSearch]);

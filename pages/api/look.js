@@ -9,16 +9,16 @@ export default async function handler(req, res) {
 
     const { searchTerm } = req.query;
 
+    if (!searchTerm) return;
+
     const searchResult = await collection
       .aggregate([
         {
           $search: {
             index: "game",
             text: {
+              path: "game",
               query: searchTerm,
-              path: {
-                wildcard: "*",
-              },
             },
           },
         },
