@@ -169,111 +169,113 @@ const Form = () => {
   // console.log(result);
   return (
     <>
-      <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 text-center">
-        <div className="mb-4">Wyszukaj grę po nazwie</div>
-        <Search
-          onGetResultChange={handleGetResultChange}
-          onShowGameChange={handleShowGameChange}
-          onResultChange={handleResultChange}
-          onResultRef={handleResulRef}
-        />
-        <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
-        <div className="mb-4">Lub skorzystaj z kategorii</div>
-        <form onSubmit={handleSubmit}>
-          <div className="grid mx-auto items-center sm:grid-cols-2">
-            <Dropdown
-              categoryName="Wiek"
-              value={ageLimit}
-              onChange={setAgeLimit}
-              catRange={ageRange}
-            />
-            <Dropdown
-              categoryName="Liczba uczestników"
-              value={amount}
-              onChange={setAmount}
-              catRange={amountRange}
-            />
-          </div>
-          <Collapsible.Root open={open} onOpenChange={setOpen}>
-            <div className="mr-24 ml-24 mt-4 mb-2 sm:mr-40 sm:ml-40">
-              <Collapsible.Trigger asChild>
-                <button className="underline">
-                  {open ? <div>mniej opcji</div> : <div>więcej opcji</div>}
-                </button>
-              </Collapsible.Trigger>
-            </div>
-
-            <Collapsible.Content className="grid sm:grid-cols-2">
-              <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
-              <Dropdown
-                categoryName="Etap zajęć"
-                value={stage}
-                onChange={setStage}
-                catRange={stageRange}
-              />
-              <Dropdown
-                categoryName="Dziedzina"
-                value={field}
-                onChange={setField}
-                catRange={fieldRange}
-              />
-              <div className="sm:col-span-2">
-                <Dropdown
-                  categoryName="Rekwizyty"
-                  value={rekwizyty}
-                  onChange={setRekwizyty}
-                  catRange={rekwizytyRange}
-                />
-              </div>
-              <Dropdown
-                categoryName="Cele społeczne"
-                value={socialAims}
-                onChange={setSocialAims}
-                catRange={socialRange}
-              />
-              <Dropdown
-                categoryName="Cele techniczne"
-                value={technicalAims}
-                onChange={setTechnicalAims}
-                catRange={technicalRange}
-              />
-              <div className="mt-5"></div>
-            </Collapsible.Content>
-          </Collapsible.Root>
+      <div>
+        <div className="font-serif shadow-md text-zinc-950 bg-gradient-to-b from-lime-600 bg-lime-700 items-center justify-center gap-2 m-auto mt-1 mb-1 p-4 rounded-md max-w-sm sm:max-w-md border border-lime-800 text-center">
+          <div className="mb-4">Wyszukaj grę po nazwie</div>
+          <Search
+            onGetResultChange={handleGetResultChange}
+            onShowGameChange={handleShowGameChange}
+            onResultChange={handleResultChange}
+            onResultRef={handleResulRef}
+          />
           <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
-          <div className="mr-14 ml-14 mt-2 mb-5 sm:mr-28 sm:ml-28">
-            <Switcher
-              id="fast_game"
-              categoryName="Szybka gra"
-              changed={fastGame}
-              handleChange={handleFastGame}
-            />
-            <Switcher
-              id="small_space"
-              categoryName="Mała przestrzeń"
-              changed={smallSpace}
-              handleChange={handleSmallSpace}
-            />
-            <Switcher
-              id="survival"
-              categoryName="Survival mode"
-              changed={survival}
-              handleChange={handleSurvival}
-            />
-          </div>
-          <div>
-            <div className="m-2 sm:m-6">
-              <Button
-                loadingText="Szukam..."
-                loading={isLoading}
-                size="xl"
-                variant="primary"
-              >
-                Szukaj
-              </Button>
+          <div className="mb-4">Lub skorzystaj z kategorii</div>
+          <form onSubmit={handleSubmit}>
+            <div className="grid mx-auto items-center sm:grid-cols-2">
+              <Dropdown
+                categoryName="Wiek"
+                value={ageLimit}
+                onChange={setAgeLimit}
+                catRange={ageRange}
+              />
+              <Dropdown
+                categoryName="Liczba uczestników"
+                value={amount}
+                onChange={setAmount}
+                catRange={amountRange}
+              />
             </div>
-          </div>
-        </form>
+            <Collapsible.Root open={open} onOpenChange={setOpen}>
+              <div className="mr-24 ml-24 mt-4 mb-2 sm:mr-40 sm:ml-40">
+                <Collapsible.Trigger asChild>
+                  <button className="underline">
+                    {open ? <div>mniej opcji</div> : <div>więcej opcji</div>}
+                  </button>
+                </Collapsible.Trigger>
+              </div>
+
+              <Collapsible.Content className="grid sm:grid-cols-2">
+                <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mb-[15px] my-[5px]" />
+                <Dropdown
+                  categoryName="Etap zajęć"
+                  value={stage}
+                  onChange={setStage}
+                  catRange={stageRange}
+                />
+                <Dropdown
+                  categoryName="Dziedzina"
+                  value={field}
+                  onChange={setField}
+                  catRange={fieldRange}
+                />
+                <div className="sm:col-span-2">
+                  <Dropdown
+                    categoryName="Rekwizyty"
+                    value={rekwizyty}
+                    onChange={setRekwizyty}
+                    catRange={rekwizytyRange}
+                  />
+                </div>
+                <Dropdown
+                  categoryName="Cele społeczne"
+                  value={socialAims}
+                  onChange={setSocialAims}
+                  catRange={socialRange}
+                />
+                <Dropdown
+                  categoryName="Cele techniczne"
+                  value={technicalAims}
+                  onChange={setTechnicalAims}
+                  catRange={technicalRange}
+                />
+                <div className="mt-5"></div>
+              </Collapsible.Content>
+            </Collapsible.Root>
+            <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[50%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
+            <div className="mr-14 ml-14 mt-2 mb-5 sm:mr-28 sm:ml-28">
+              <Switcher
+                id="fast_game"
+                categoryName="Szybka gra"
+                changed={fastGame}
+                handleChange={handleFastGame}
+              />
+              <Switcher
+                id="small_space"
+                categoryName="Mała przestrzeń"
+                changed={smallSpace}
+                handleChange={handleSmallSpace}
+              />
+              <Switcher
+                id="survival"
+                categoryName="Survival mode"
+                changed={survival}
+                handleChange={handleSurvival}
+              />
+            </div>
+            <div>
+              <div className="m-2 sm:m-6">
+                <Button
+                  loadingText="Szukam..."
+                  loading={isLoading}
+                  size="xl"
+                  variant="primary"
+                >
+                  Szukaj
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
 
         <div ref={resultRef}>
           {result.length !== 0 && getResult ? (
