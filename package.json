@@ -14,14 +14,17 @@
     "@radix-ui/themes": "^1.1.2",
     "@tremor/react": "^3.7.4",
     "@vercel/analytics": "^1.0.1",
+    "algoliasearch": "^4.22.1",
     "axios": "^1.4.0",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.3.1",
+    "instantsearch.css": "^8.1.0",
     "mongodb": ">=4.17.0",
     "next": "latest",
     "punycode": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-instantsearch": "^7.7.0",
     "zod": "^3.22.3"
   },
   "devDependencies": {
