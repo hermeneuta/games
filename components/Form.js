@@ -71,6 +71,7 @@ const Form = () => {
   const [submitted, setSubmitted] = useState(null);
   const [amount, setAmount] = useState(amountRange[0]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAll, setIsLoadingAll] = useState(false);
   const [showGame, setShowGame] = useState("");
   const [rekwizyty, setRekwizyty] = useState(rekwizytyRange[0]);
   const [field, setField] = useState(fieldRange[0]);
@@ -97,7 +98,6 @@ const Form = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!submitted) return;
-      setIsLoading(true);
       try {
         const response = await axios.post("/api/search", submitted);
         setResult(response.data);
@@ -107,6 +107,7 @@ const Form = () => {
         console.error(err);
       } finally {
         setIsLoading(false);
+        setIsLoadingAll(false);
         resultRef.current.scrollIntoView({ behavior: "smooth" });
       }
     };
@@ -128,6 +129,7 @@ const Form = () => {
       smallSpace: smallSpace,
       survival: survival,
     });
+    setIsLoading(true);
   };
 
   const handleSubmitAll = async (e) => {
@@ -145,6 +147,7 @@ const Form = () => {
       smallSpace: smallSpace,
       survival: survival,
     });
+    setIsLoadingAll(true);
   };
 
   const handleNav = (info) => {
@@ -192,12 +195,12 @@ const Form = () => {
     const fetchData = async () => {
       if (!submitted) return;
 
-      setIsLoading(true);
+      // setIsLoading(true);
       const response = await axios.post("/api/search", submitted);
       setResult(response.data);
       setShowGame(response.data[0]);
       setGetResult(true);
-      setIsLoading(false);
+      // setIsLoading(false);
       resultRef.current.scrollIntoView({ behavior: "smooth" });
     };
 
@@ -214,7 +217,7 @@ const Form = () => {
           </div>
           <Search
             onGetResultChange={handleGetResultChange}
-            onshowgamechange={handleShowGameChange}
+            onShowGameChange={handleShowGameChange}
             onResultChange={handleResultChange}
             onResultRef={handleResulRef}
           />
@@ -228,8 +231,8 @@ const Form = () => {
                 <div>
                   <div className="m-2 sm:m-6">
                     <Button
-                      loadingText="Szukam..."
-                      loading={isLoading}
+                      loadingText="Ładuję..."
+                      loading={isLoadingAll}
                       size="xl"
                       variant="primary"
                     >
