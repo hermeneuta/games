@@ -50,7 +50,7 @@ const Game = ({ games, handleNav, results }) => {
             </div>
             <div>
               <span className="font-semibold">Wiek:</span>{" "}
-              {games.age?.length === 4 ? "dowolny" : games.age?.join(", ")}
+              {games.age?.join(", ")}
             </div>
             <div>
               <span className="font-semibold">Liczba uczestników:</span>{" "}

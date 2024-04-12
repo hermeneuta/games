@@ -18,7 +18,7 @@ export default async (req, res) => {
       const client = await clientPromise;
       const db = client.db("Pedagogy");
 
-      const ageQuery = age === "dowolny" ? {} : { age: { $in: [age] } };
+      const ageQuery = age === "wszystkie" ? {} : { age: { $in: [age] } };
 
       const amountQuery =
         amount === "dowolna" ? {} : { amount: { $in: [amount] } };
