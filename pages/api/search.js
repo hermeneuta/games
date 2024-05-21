@@ -55,7 +55,7 @@ export default async (req, res) => {
       const games = await db
         .collection("games-dev")
         .find(query)
-        .limit(18)
+        .limit(20)
         // .aggregate([query, sampleStage])
         .toArray();
       res.json(games);
