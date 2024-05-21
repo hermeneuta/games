@@ -53,7 +53,7 @@ export default async (req, res) => {
 
       // const sampleStage = { $sample: { size: 5 } };
       const games = await db
-        .collection("games-dev")
+        .collection("games")
         .find(query)
         .limit(20)
         // .aggregate([query, sampleStage])

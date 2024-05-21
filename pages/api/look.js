@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const client = await clientPromise;
     const db = client.db("Pedagogy");
     //Kolekcja testowa to games-dev
-    const collection = db.collection("games-dev");
+    const collection = db.collection("games");
 
     const { searchTerm } = req.query;
 
