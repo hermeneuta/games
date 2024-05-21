@@ -245,7 +245,7 @@ const Form = () => {
           </div>
           <Separator.Root className="sm:col-span-2 bg-lime-800 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-[70%] inline-flex data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[5px]" />
           <div className="mb-4 text-lg tracking-wide sm:tracking-widest">
-            Lub skorzystaj z wyszukiwarki
+            Lub skorzystaj z kategorii
           </div>
           <form onSubmit={handleSubmit}>
             <div className="grid mx-auto items-center sm:grid-cols-2">
