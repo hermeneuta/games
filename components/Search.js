@@ -40,7 +40,7 @@ const Search = ({
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="berek"
+          placeholder="np. berek"
           aria-label="Search"
           className="
     border-zinc-50 

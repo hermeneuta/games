@@ -18,7 +18,7 @@ export default async (req, res) => {
       const client = await clientPromise;
       const db = client.db("Pedagogy");
 
-      const ageQuery = age === "dowolny" ? {} : { age: { $in: [age] } };
+      const ageQuery = age === "wszystkie" ? {} : { age: { $in: [age] } };
 
       const amountQuery =
         amount === "dowolna" ? {} : { amount: { $in: [amount] } };
@@ -53,9 +53,9 @@ export default async (req, res) => {
 
       // const sampleStage = { $sample: { size: 5 } };
       const games = await db
-        .collection("games")
+        .collection("games-dev")
         .find(query)
-        .limit(18)
+        .limit(20)
         // .aggregate([query, sampleStage])
         .toArray();
       res.json(games);
